@@ -1,0 +1,106 @@
+
+
+/* Styling the image logo */
+header img {
+    width: 40px;
+    height: auto;
+    margin-right: 16px; /* Slightly increased margin for spacing */
+    transition: transform 0.3s ease; /* Smooth scaling transition */
+}
+
+/* Hover effect on logo */
+header img:hover {
+    transform: scale(1.1); /* Enlarge the logo slightly when hovered */
+}
+
+/* Styling the h2 element */
+header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; /* Use a bolder weight for emphasis */
+    font-size: 26px; /* Slightly larger font size */
+    color: #333; /* Darker text color for better contrast */
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25); /* Softer shadow */
+}
+
+/* Hover effect for header */
+header:hover {
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly lighter background on hover */
+    transform: translateY(-5px) scale(1.02); /* Lift and scale effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+/* Active effect when clicked */
+header:active {
+    transform: scale(0.98) translateY(2px); /* More pronounced shrink effect when clicked */
+    background-color: #f2d0a4; /* Soft peach color when clicked */
+}
+
+/* Optional: Adding a smooth animation for when the page loads */
+header {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Media Query for Mobile */
+@media (max-width: 600px) {
+    header {
+        padding: 10px 15px;
+    }
+    header h2 {
+        font-size: 22px;
+    }
+}
+/* Header Styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  /* Distribute space between items */
+    padding: 12px 25px;
+    background: linear-gradient(to right, #f7c8d0, #c3cfe2);
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+/* Date and Time Styling */
+.date-time {
+    color: #333;
+    font-size: 16px;
+    text-align: right;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-right: 20px;
+    
+    min-width: 160px; /* Prevents shifting */
+}
+
+.date-time p {
+    margin: 0;
+    font-weight: 600;
+    
+    font-variant-numeric: tabular-nums; /* Ensures fixed-width digits */
+}
+
+/* Date and time IDs */
+.date-time #date {
+    font-size: 18px;
+    color: #555;
+}
+
+.date-time #time {
+    font-size: 22px;
+    color: #333;
+    font-weight: 700;
+}
