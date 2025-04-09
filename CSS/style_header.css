@@ -1,106 +1,129 @@
-
-
-/* Styling the image logo */
+/* -----------------------------------
+🌟 LOGO STYLING (Image inside header)
+----------------------------------- */
 header img {
-    width: 40px;
-    height: auto;
-    margin-right: 16px; /* Slightly increased margin for spacing */
-    transition: transform 0.3s ease; /* Smooth scaling transition */
+    width: 40px; /* Maintain a consistent width */
+    height: auto; /* Preserve aspect ratio */
+    margin-right: 16px; /* Gap between logo and heading */
+    transition: transform 0.3s ease; /* Smooth scaling on hover */
 }
 
-/* Hover effect on logo */
+/* 🔍 Hover effect for the logo */
 header img:hover {
-    transform: scale(1.1); /* Enlarge the logo slightly when hovered */
+    transform: scale(1.1); /* Slight enlargement on hover */
 }
 
-/* Styling the h2 element */
+
+/* -----------------------------------
+📝 HEADER TEXT STYLING (h2)
+----------------------------------- */
 header h2 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600; /* Use a bolder weight for emphasis */
-    font-size: 26px; /* Slightly larger font size */
-    color: #333; /* Darker text color for better contrast */
-    margin: 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25); /* Softer shadow */
+    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    font-weight: 600; /* Bold for emphasis */
+    font-size: 26px; /* Prominent size */
+    color: #333; /* Dark grey for better visibility */
+    margin: 0; /* Remove default margin */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25); /* Soft shadow for depth */
 }
 
-/* Hover effect for header */
+
+/* -----------------------------------
+🎯 HEADER CONTAINER INTERACTIONS
+----------------------------------- */
+
+/* Hover state of the entire header */
 header:hover {
-    background-color: rgba(255, 255, 255, 0.85); /* Slightly lighter background on hover */
-    transform: translateY(-5px) scale(1.02); /* Lift and scale effect */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    background-color: rgba(255, 255, 255, 0.85); /* Subtle background change */
+    transform: translateY(-5px) scale(1.02); /* Slight pop-out effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Deeper shadow for elevation */
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-
 }
 
-/* Active effect when clicked */
+/* Click/active effect on the header */
 header:active {
-    transform: scale(0.98) translateY(2px); /* More pronounced shrink effect when clicked */
-    background-color: #f2d0a4; /* Soft peach color when clicked */
+    transform: scale(0.98) translateY(2px); /* Shrink slightly inward */
+    background-color: #f2d0a4; /* Gentle peach tint on click */
 }
 
-/* Optional: Adding a smooth animation for when the page loads */
+
+/* -----------------------------------
+🌅 PAGE LOAD ANIMATION FOR HEADER
+----------------------------------- */
 header {
-    opacity: 0;
-    animation: fadeIn 1s ease forwards;
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 1s ease forwards; /* Fade in smoothly */
 }
 
 @keyframes fadeIn {
     to {
-        opacity: 1;
+        opacity: 1; /* End fully visible */
     }
 }
 
-/* Media Query for Mobile */
+
+/* -----------------------------------
+📱 RESPONSIVE DESIGN: Mobile Screens
+----------------------------------- */
 @media (max-width: 600px) {
     header {
-        padding: 10px 15px;
+        padding: 10px 15px; /* Tighter padding on small screens */
     }
     header h2 {
-        font-size: 22px;
+        font-size: 22px; /* Smaller font size for better fit */
     }
 }
-/* Header Styling */
+
+
+/* -----------------------------------
+🧱 MAIN HEADER STRUCTURE & LAYOUT
+----------------------------------- */
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;  /* Distribute space between items */
-    padding: 12px 25px;
-    background: linear-gradient(to right, #f7c8d0, #c3cfe2);
-    border-radius: 20px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+    display: flex; /* Arrange children in a row */
+    align-items: center; /* Vertically center logo and text */
+    justify-content: space-between; /* Space between text and date/time */
+    padding: 12px 25px; /* Spacing inside the header */
+    background: linear-gradient(to right, #f7c8d0, #c3cfe2); /* Smooth gradient background */
+    border-radius: 20px; /* Soft, rounded edges */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Subtle drop shadow */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+    position: relative; /* For positioning child elements if needed */
 }
 
-/* Date and Time Styling */
+
+/* -----------------------------------
+🕓 DATE & TIME DISPLAY STYLING
+----------------------------------- */
 .date-time {
-    color: #333;
-    font-size: 16px;
-    text-align: right;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
+    color: #333; /* Primary text color */
+    font-size: 16px; /* Base font size */
+    text-align: right; /* Align text to the right side */
+    font-family: 'Poppins', sans-serif; /* Match with header text */
+    display: flex; /* Use column layout */
     flex-direction: column;
-    gap: 5px;
-    padding-right: 20px;
-    
-    min-width: 160px; /* Prevents shifting */
+    gap: 5px; /* Spacing between date and time */
+    padding-right: 20px; /* Padding from the right edge */
+    min-width: 160px; /* Prevent content from shrinking */
 }
 
+
+/* 💬 General paragraph style inside date-time */
 .date-time p {
-    margin: 0;
-    font-weight: 600;
-    
-    font-variant-numeric: tabular-nums; /* Ensures fixed-width digits */
+    margin: 0; /* Remove default spacing */
+    font-weight: 600; /* Make it slightly bold */
+    font-variant-numeric: tabular-nums; /* Fixed-width digits for better alignment */
 }
 
-/* Date and time IDs */
+
+/* 📅 Specific Date Styling */
 .date-time #date {
     font-size: 18px;
-    color: #555;
+    color: #555; /* Slightly lighter grey for contrast */
 }
 
+
+/* ⏰ Specific Time Styling */
 .date-time #time {
     font-size: 22px;
-    color: #333;
-    font-weight: 700;
+    color: #333; /* Darker for prominence */
+    font-weight: 700; /* Bolder to make it stand out */
 }

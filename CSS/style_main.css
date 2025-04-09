@@ -1,14 +1,19 @@
-/* Use Google Fonts - Poppins */
+/* --------------------------------------------------
+   Import Google Font: Poppins (weights: 400, 600)
+-------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* --------------------------
+   Global Body Styling
+-------------------------- */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #eef2f3;
+  background: linear-gradient(135deg, #c9d6ff, #e2e2e2); /* Soft gradient background */
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
-
 }
+
+/* Glass blur overlay over the entire body */
 body::before {
   content: '';
   position: fixed;
@@ -18,6 +23,9 @@ body::before {
   z-index: -1;
 }
 
+/* -------------------------------
+   Main Layout Container
+------------------------------- */
 main {
   display: flex;
   justify-content: center;
@@ -27,7 +35,9 @@ main {
   padding: 40px 20px;
 }
 
-/* Sensor Card Styling */
+/* ------------------------------------------
+   Sensor Card (for displaying sensor data)
+------------------------------------------ */
 .sensor-card {
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
   border-radius: 24px;
@@ -36,7 +46,6 @@ main {
   width: 260px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
 }
 
 .sensor-card:hover {
@@ -44,7 +53,7 @@ main {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Text Styling */
+/* Sensor Card Text Styling */
 .sensor-title {
   font-size: 1.5rem;
   font-weight: 600;
@@ -64,181 +73,241 @@ main {
   margin-top: 5px;
 }
 
-/* Responsive grid layout */
+/* ---------------------------
+   Responsive Layout (Mobile)
+--------------------------- */
 @media (max-width: 768px) {
-    main {
-      flex-direction: column;
-      align-items: stretch;
-    }
+  main {
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  /* Smooth fade-in animation for cards */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .glass {
-    background: rgba(255, 255, 255, 0.25);         /* Transparent white background */
-    backdrop-filter: blur(10px);                   /* Blurs what's behind */
-    -webkit-backdrop-filter: blur(10px);           /* Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.18);    /* Soft glassy border */
-  }
-  
-  .sensor-value.loading {
-    color: #aaa;
-    animation: pulse 1.2s infinite;
-  }
-  
-  @keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 1; }
-    100% { opacity: 0.4; }
-  }
+}
 
-  .status-indicator {
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 8px 18px;
-    border-radius: 25px;
-    display: inline-block;
-    transition: all 0.4s ease;
-    letter-spacing: 0.5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    position: relative;
+/* --------------------------
+   Animation: Fade In Effect
+-------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* LIVE MODE */
-  .status-indicator.live {
-    color: #00e676;
-    background-color: #e0fff1;
-    box-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
-    animation: pulse-glow 1.5s ease-in-out infinite;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* OFFLINE MODE */
-  .status-indicator.offline {
-    color: #ff1744;
-    background-color: #ffe6ea;
-    box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
-    animation: blink-fade 1.2s ease-in-out infinite;
+}
+
+/* ----------------------------------
+   Utility Class: Glass Effect Box
+---------------------------------- */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Loading State for Sensor Values */
+.sensor-value.loading {
+  color: #aaa;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* -------------------------------------
+   Status Indicator (Live / Offline Tag)
+------------------------------------- */
+.status-indicator {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 25px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+/* Live Status */
+.status-indicator.live {
+  color: #00e676;
+  background-color: #e0fff1;
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Offline Status */
+.status-indicator.offline {
+  color: #ff1744;
+  background-color: #ffe6ea;
+  box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
+  animation: blink-fade 1.2s ease-in-out infinite;
+}
+
+/* Glow Animation for Live */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.3), 0 0 12px rgba(0, 230, 118, 0.4);
   }
-  
-  /* PULSE GLOW for LIVE */
-  @keyframes pulse-glow {
-    0% {
-      box-shadow: 0 0 8px rgba(0, 230, 118, 0.3), 0 0 12px rgba(0, 230, 118, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.6);
-    }
-    100% {
-      box-shadow: 0 0 8px rgba(0, 230, 118, 0.3), 0 0 12px rgba(0, 230, 118, 0.4);
-    }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.6);
   }
-  
-  /* BLINKING FADE for OFFLINE */
-  @keyframes blink-fade {
-    0% {
-      opacity: 0.3;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 0.3;
-      transform: scale(1);
-    }
+}
+
+/* Blink Fade for Offline */
+@keyframes blink-fade {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
   }
-  .weather-card {
-    width: 320px;
-    padding: 28px 22px;
-    border-radius: 30px;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(135, 206, 250, 0.18));
-    backdrop-filter: blur(22px) saturate(200%);
-    -webkit-backdrop-filter: blur(22px) saturate(200%);
-    box-shadow:
-      0 8px 30px rgba(0, 0, 0, 0.25),
-      0 0 30px rgba(135, 206, 250, 0.3),
-      inset 0 0 15px rgba(255, 255, 255, 0.08),
-      inset 0 0 3px rgba(135, 206, 250, 0.1);
-    color: #1c1c1c;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    transition: all 0.4s ease;
-    animation: popIn 0.6s ease forwards;
-    margin: 40px auto;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    position: relative;
-    transform-style: preserve-3d;
-    will-change: transform;
-    overflow: hidden;
-  }
-  
-  
-  /* Hover Effect */
-  .weather-card:hover {
+  50% {
+    opacity: 1;
     transform: scale(1.05);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
   }
-  
-  /* Weather Emoji Animation */
-  .weather-card .emoji {
-    font-size: 56px;
-    margin-bottom: 16px;
-    animation: bounce 2s infinite ease-in-out, glow 3s ease-in-out infinite;
+}
+
+/* -----------------------------------------
+   Weather Card with Emoji + Pop Animation
+----------------------------------------- */
+.weather-card {
+  width: 320px;
+  padding: 28px 22px;
+  border-radius: 30px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(135, 206, 250, 0.18));
+  backdrop-filter: blur(22px) saturate(200%);
+  -webkit-backdrop-filter: blur(22px) saturate(200%);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(135, 206, 250, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.08),
+    inset 0 0 3px rgba(135, 206, 250, 0.1);
+  color: #1c1c1c;
+  text-align: center;
+  transition: all 0.4s ease;
+  animation: popIn 0.6s ease forwards;
+  margin: 40px auto;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  overflow: hidden;
+}
+
+.weather-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Emoji inside Weather Card */
+.weather-card .emoji {
+  font-size: 56px;
+  margin-bottom: 16px;
+  animation: bounce 2s infinite ease-in-out, glow 3s ease-in-out infinite;
+}
+
+/* On Hover Emoji Bounces Larger */
+.weather-card:hover .emoji {
+  transform: scale(1.25);
+}
+
+/* Weather Title Text */
+.weather-card h2 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Pop In Effect for Card */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
-  /* Only on hover: stronger bounce */
-  .weather-card:hover .emoji {
-    transform: scale(1.25);
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  /* Weather Title */
-  .weather-card h2 {
-    font-size: 24px;
-    margin: 0;
-    font-weight: 600;
-    color: #333;
+}
+
+/* Bounce Animation for Emoji */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Glow Animation for Emoji */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px #fff, 0 0 8px #fff;
   }
-  
-  /* Pop-in Animation */
-  @keyframes popIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+  50% {
+    text-shadow: 0 0 15px #fff, 0 0 25px #fff;
   }
-  
-  /* Emoji bounce */
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
-  }
-  
-  /* Emoji glow */
-  @keyframes glow {
-    0%, 100% {
-      text-shadow: 0 0 5px #fff, 0 0 8px #fff;
-    }
-    50% {
-      text-shadow: 0 0 15px #fff, 0 0 25px #fff;
-    }
-  }
-  
+}
+
+/* ------------------------------------------------
+   IP Input Section: For entering ESP IP address
+------------------------------------------------ */
+.ip-input-section {
+  text-align: center;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #e9ecef, #ced4da);
+  border-radius: 15px;
+  max-width: 650px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #dee2e6;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.ip-input-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* IP Input Text Field */
+.ip-input-section input[type="text"] {
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: 1.5px solid #adb5bd;
+  width: clamp(200px, 70%, 400px);
+  font-size: 1.1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  outline: none;
+  background-color: #f8f9fa;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.075);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  margin-right: 15px;
+}
+
+.ip-input-section input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
+}
+
+/* IP Submit Button */
+.ip-input-section button {
+  padding: 14px 22px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  font-weight: 500;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.ip-input-section button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #0056b3, #003c80);
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.5);
+}

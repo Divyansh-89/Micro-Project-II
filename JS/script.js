@@ -1,3 +1,28 @@
+// ===================================================
+// 🌐 ESP IP MANAGEMENT
+// ===================================================
+
+// 🔹 Get saved ESP IP from localStorage
+function getESPIP() {
+    return localStorage.getItem("espIP") || "";
+}
+
+// 🔹 Save ESP IP to localStorage and trigger fetch
+function setESPIP(ip) {
+    localStorage.setItem("espIP", ip);
+    espIP = ip;
+    fetchSensorData(); // fetch immediately after setting
+}
+
+// 🔹 Initialize IP variable
+let espIP = getESPIP();
+
+
+// ===================================================
+// ⏰ DATE & TIME UPDATER
+// ===================================================
+
+// 🔹 Update date and time every second
 function updateDateTime() {
     const date = new Date();
     const formattedDate = date.toLocaleDateString();
@@ -7,20 +32,35 @@ function updateDateTime() {
 }
 setInterval(updateDateTime, 1000);
 
-// LIVE FETCH FROM ESP
+
+// ===================================================
+// 🌐 LIVE FETCH FROM ESP
+// ===================================================
+
+// 🔹 Fetch sensor data from ESP (if IP is set)
 async function fetchSensorData() {
+    if (!espIP) return;
+
     try {
-        const response = await fetch("http://<esp_ip>/data");
+        const response = await fetch(`http://${espIP}/data`);
         const data = await response.json();
         updateSensorData(data.temperature, data.humidity, data.lux);
+        console.log("Fetched from:", espIP);
     } catch (error) {
         console.error("Failed to fetch sensor data:", error);
     }
 }
+
+// 🔹 Fetch data every 2 seconds
 setInterval(fetchSensorData, 2000);
 fetchSensorData();
 
-// CLEAN + SINGLE updateSensorData
+
+// ===================================================
+// 🧠 UPDATE SENSOR DATA
+// ===================================================
+
+// 🔹 Update DOM with sensor values and refresh status
 function updateSensorData(temp, hum, lux) {
     document.getElementById("temp-value").innerText = temp;
     document.getElementById("humidity-value").innerText = hum;
@@ -31,11 +71,14 @@ function updateSensorData(temp, hum, lux) {
     document.getElementById("lux-value").classList.remove("loading");
 
     lastUpdateTime = Date.now();
-    setStatus(true);
-
-    // 💡 ALSO update weather card here
-    updateWeatherCard(lux, temp, hum);
+    setStatus(true); // set to live
+    updateWeatherCard(lux, temp, hum); // update condition card
 }
+
+
+// ===================================================
+// 🟢/🔴 STATUS INDICATOR
+// ===================================================
 
 function setStatus(isLive) {
     const statusEl = document.getElementById("status");
@@ -50,9 +93,8 @@ function setStatus(isLive) {
     }
 }
 
+// 🔹 Monitor last update time to toggle live/offline
 let lastUpdateTime = Date.now();
-
-// Monitor status every 5 sec
 setInterval(() => {
     const now = Date.now();
     if (now - lastUpdateTime > 6000) {
@@ -60,7 +102,12 @@ setInterval(() => {
     }
 }, 5000);
 
-// 🌦️ Weather logic
+
+// ===================================================
+// 🌦️ WEATHER CONDITION LOGIC
+// ===================================================
+
+// 🔹 Get weather condition based on sensor values
 function getWeatherState(ldr, temp, humidity) {
     if (ldr < 200 && temp < 20 && humidity > 75) {
         return { state: "Freezing Foggy Night", emoji: "🌫️❄️🌌", bg: "#1e3c72, #2a5298" };
@@ -79,32 +126,61 @@ function getWeatherState(ldr, temp, humidity) {
     }
 }
 
-// 🎨 Weather Card Update
+
+// ===================================================
+// 🎨 WEATHER CARD UI UPDATER
+// ===================================================
+
+// 🔹 Update weather card with state, emoji, and background
 function updateWeatherCard(ldr, temp, humidity) {
     const { state, emoji, bg } = getWeatherState(ldr, temp, humidity);
-
     document.getElementById("weatherState").textContent = state;
     document.getElementById("weatherEmoji").textContent = emoji;
     document.getElementById("weatherCard").style.background = `linear-gradient(135deg, ${bg})`;
 }
 
-// Weather Card Tilt Effect
+
+// ===================================================
+// 🌀 TILT ANIMATION EFFECT ON CARD
+// ===================================================
+
 const card = document.querySelector(".weather-card");
 
 card.addEventListener("mousemove", (e) => {
-  const rect = card.getBoundingClientRect();
-  const x = e.clientX - rect.left; // x position within the card
-  const y = e.clientY - rect.top;  // y position within the card
-
-  const centerX = rect.width / 2;
-  const centerY = rect.height / 2;
-
-  const rotateX = ((y - centerY) / centerY) * 8; // Max 8deg
-  const rotateY = ((x - centerX) / centerX) * 8;
-
-  card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * 8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
 });
 
 card.addEventListener("mouseleave", () => {
-  card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+});
+
+
+// ===================================================
+// 🔗 IP INPUT HANDLING FROM USER
+// ===================================================
+
+// 🔹 Update ESP IP from input
+function updateESPIP() {
+    const input = document.getElementById("esp-ip-input").value.trim();
+    if (input) setESPIP(input);
+}
+
+// 🔹 Submit IP on pressing Enter
+document.getElementById("esp-ip-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        updateESPIP();
+    }
+});
+
+// 🔹 Auto-fill IP field on page load if saved
+document.addEventListener("DOMContentLoaded", () => {
+    const ipInput = document.getElementById("esp-ip-input");
+    if (espIP && ipInput) ipInput.value = espIP;
 });

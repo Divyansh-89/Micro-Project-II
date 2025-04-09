@@ -2,30 +2,52 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Meta & Fonts -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
   <title>Weather Station Dashboard</title>
-  <link rel="stylesheet" href="CSS/style_header.css">
-  <link rel="stylesheet" href="CSS/style_main.css">
-  <link rel="stylesheet" href="CSS/style_footer.css">
-  <link rel="icon" href="IMAGES/favicon.png" type="image/png">
-  <script src="JS\script.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="CSS/style_header.css" />
+  <link rel="stylesheet" href="CSS/style_main.css" />
+  <link rel="stylesheet" href="CSS/style_footer.css" />
+  <link rel="icon" href="IMAGES/favicon.png" type="image/png" />
+
+  <!-- JS Script -->
+  <script src="JS/script.js"></script>
 </head>
 
 <body>
+
+  <!-- 🔷 Header Section -->
   <header>
-    <img src="IMAGES/clouds-and-sun.png" alt="Weather Logo">
+    <img src="IMAGES/clouds-and-sun.png" alt="Weather Logo" />
     <h2>Weather Station Dashboard</h2>
     <div class="date-time">
       <p id="date"></p>
       <p id="time"></p>
     </div>
   </header>
+
+  <!-- 🔴 ESP Status Display -->
   <div style="position: absolute; top: 100px; left: 20px;">
     <div class="status-indicator offline" id="status">● Offline</div>
   </div>
+
+  <!-- 🔧 Main Container -->
   <div class="container">
+
+    <!-- 🌐 ESP IP Input -->
+    <div class="ip-input-section">
+      <input type="text" id="esp-ip-input" placeholder="Enter ESP IP address (e.g., 192.168.1.100)" />
+      <button onclick="updateESPIP()">Connect</button>
+    </div>
+
+    <!-- 📊 Sensor Data Cards -->
     <main>
       <div class="sensor-card glass">
         <div class="sensor-title">Temperature</div>
@@ -46,13 +68,17 @@
       </div>
     </main>
   </div>
-<!-- Weather Condition Card -->
-<div class="weather-card" id="weatherCard">
-  <div class="emoji" id="weatherEmoji">🌞</div>
-  <h2 id="weatherState">Sunny & Pleasant</h2>
-</div>
 
+  <!-- 🌤️ Weather Emoji & State -->
+  <div class="weather-card" id="weatherCard">
+    <div class="emoji" id="weatherEmoji">🌞</div>
+    <h2 id="weatherState">Sunny & Pleasant</h2>
+  </div>
+
+  <!-- 📥 Footer Section -->
   <footer class="custom-footer">
+
+    <!-- ℹ️ Footer Info -->
     <div style="text-align: center; margin-bottom: 8px;">
       <h2 style="font-size: 15px; font-weight: 600; margin: 4px 0;">🌤️ Weather Station Dashboard</h2>
       <p style="margin: 4px 0; color: #555; font-size: 12px;">
@@ -60,33 +86,33 @@
       </p>
     </div>
 
-    <!-- Social Icons Section -->
+    <!-- 🔗 Social Media Links -->
     <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px;">
       <div style="display: flex; gap: 16px;">
 
-        <!-- Divyansh -->
+        <!-- 👤 Divyansh -->
         <a href="https://www.linkedin.com/in/divyansh---rajput" target="_blank" class="icon-container">
           <span class="tooltip">Divyansh (LinkedIn)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
         </a>
         <a href="https://github.com/Divyansh-89" target="_blank" class="icon-container">
           <span class="tooltip">Divyansh (GitHub)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
         </a>
 
-        <!-- Abhay -->
+        <!-- 👤 Abhay -->
         <a href="https://www.linkedin.com/in/abhay-palway-95944a348" target="_blank" class="icon-container">
           <span class="tooltip">Abhay (LinkedIn)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
         </a>
         <a href="https://github.com/Iot-abhay" target="_blank" class="icon-container">
           <span class="tooltip">Abhay (GitHub)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
         </a>
       </div>
     </div>
 
-    <!-- Bottom row: Left year + right dev credit -->
+    <!-- 🧾 Bottom Credit Row -->
     <div style="
       display: flex;
       justify-content: space-between;
@@ -97,8 +123,8 @@
       <span>© 2025 Weather Station Dashboard</span>
       <span>Developed by Divyansh Rajput & Abhay Palway</span>
     </div>
-  </footer>
 
+  </footer>
 
 </body>
 
