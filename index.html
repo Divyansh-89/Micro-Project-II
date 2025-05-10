@@ -2,130 +2,130 @@
 <html lang="en">
 
 <head>
-  <!-- Meta & Fonts -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Font: Poppins -->
+  <!-- 🔤 Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
+  <!-- 🧾 Page Title -->
   <title>Weather Station Dashboard</title>
 
-  <!-- Stylesheets -->
+  <!-- 🎨 CSS Stylesheets -->
   <link rel="stylesheet" href="CSS/style_header.css" />
   <link rel="stylesheet" href="CSS/style_main.css" />
   <link rel="stylesheet" href="CSS/style_footer.css" />
-  <link rel="icon" href="IMAGES/favicon.png" type="image/png" />
 
-  <!-- JS Script -->
-  <script src="JS/script.js"></script>
+  <!-- 🌐 Favicon -->
+  <link rel="icon" href="IMAGES/favicon.png" type="image/png" />
 </head>
 
 <body>
+  <div class="wrapper">
 
-  <!-- 🔷 Header Section -->
-  <header>
-    <img src="IMAGES/clouds-and-sun.png" alt="Weather Logo" />
-    <h2>Weather Station Dashboard</h2>
-    <div class="date-time">
-      <p id="date"></p>
-      <p id="time"></p>
+    <!-- 🔷 HEADER SECTION -->
+    <header>
+      <img src="IMAGES/clouds-and-sun.png" alt="Weather Logo" />
+      <h2>Weather Station Dashboard</h2>
+
+      <!-- 🕒 Current Date and Time -->
+      <div class="date-time">
+        <p id="date"></p>
+        <p id="time"></p>
+      </div>
+    </header>
+
+    <!-- 🔴 ESP CONNECTION STATUS -->
+    <div style="position: absolute; top: 100px; left: 20px;">
+      <div class="status-indicator offline" id="status">● Offline</div>
     </div>
-  </header>
 
-  <!-- 🔴 ESP Status Display -->
-  <div style="position: absolute; top: 100px; left: 20px;">
-    <div class="status-indicator offline" id="status">● Offline</div>
+    <!-- 🧰 MAIN SENSOR CONTAINER -->
+    <div class="container">
+
+      <!-- 🌐 ESP IP ADDRESS INPUT -->
+      <div class="ip-input-section">
+        <input type="text" id="esp-ip-input" placeholder="Enter ESP IP address (e.g., 192.168.1.100)"
+          oninput="validateIP()" />
+        <button id="connect-btn" onclick="updateESPIP()" disabled>Connect</button>
+      </div>
+
+      <!-- 📊 SENSOR DATA CARDS -->
+      <main>
+        <div class="sensor-card glass">
+          <div class="sensor-title">Temperature</div>
+          <div class="sensor-value loading" id="temp-value">--</div>
+          <div class="sensor-unit">°C</div>
+        </div>
+
+        <div class="sensor-card glass">
+          <div class="sensor-title">Humidity</div>
+          <div class="sensor-value loading" id="humidity-value">--</div>
+          <div class="sensor-unit">%</div>
+        </div>
+      </main>
+    </div>
+
+    <!-- 🌥️ WEATHER EMOJI & DESCRIPTION -->
+    <div class="weather-card" id="weatherCard">
+      <div class="emoji" id="weatherEmoji">🌞</div>
+      <h2 id="weatherState">Sunny & Pleasant</h2>
+    </div>
+
+    <!-- 📥 FOOTER SECTION -->
+    <footer class="custom-footer">
+
+      <!-- ℹ️ DASHBOARD INFO -->
+      <div style="text-align: center; margin-bottom: 8px;">
+        <h2 style="font-size: 15px; font-weight: 600; margin: 4px 0;">🌤️ Weather Station Dashboard</h2>
+        <p style="margin: 4px 0; color: #555; font-size: 12px;">
+          A Smart Monitoring Platform for tracking and improving your environmental awareness
+        </p>
+      </div>
+
+      <!-- 🔗 DEVELOPER SOCIAL LINKS -->
+      <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px;">
+        <div style="display: flex; gap: 16px;">
+          <!-- 👤 Divyansh -->
+          <a href="https://www.linkedin.com/in/divyansh---rajput" target="_blank" class="icon-container">
+            <span class="tooltip">Divyansh (LinkedIn)</span>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+              alt="LinkedIn" />
+          </a>
+          <a href="https://github.com/Divyansh-89" target="_blank" class="icon-container">
+            <span class="tooltip">Divyansh (GitHub)</span>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
+          </a>
+
+          <!-- 👤 Abhay -->
+          <a href="https://www.linkedin.com/in/abhay-palway-95944a348" target="_blank" class="icon-container">
+            <span class="tooltip">Abhay (LinkedIn)</span>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+              alt="LinkedIn" />
+          </a>
+          <a href="https://github.com/Iot-abhay" target="_blank" class="icon-container">
+            <span class="tooltip">Abhay (GitHub)</span>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
+          </a>
+        </div>
+      </div>
+
+      <!-- 📌 COPYRIGHT & CREDITS -->
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        color: #6b7280;
+      ">
+        <span>© 2025 Weather Station Dashboard</span>
+        <span>Developed by Divyansh Rajput & Abhay Palway</span>
+      </div>
+    </footer>
   </div>
 
-  <!-- 🔧 Main Container -->
-  <div class="container">
-
-    <!-- 🌐 ESP IP Input -->
-    <div class="ip-input-section">
-      <input type="text" id="esp-ip-input" placeholder="Enter ESP IP address (e.g., 192.168.1.100)" />
-      <button onclick="updateESPIP()">Connect</button>
-    </div>
-
-    <!-- 📊 Sensor Data Cards -->
-    <main>
-      <div class="sensor-card glass">
-        <div class="sensor-title">Temperature</div>
-        <div class="sensor-value loading" id="temp-value">--</div>
-        <div class="sensor-unit">°C</div>
-      </div>
-
-      <div class="sensor-card glass">
-        <div class="sensor-title">Humidity</div>
-        <div class="sensor-value loading" id="humidity-value">--</div>
-        <div class="sensor-unit">%</div>
-      </div>
-
-      <div class="sensor-card glass">
-        <div class="sensor-title">Light Intensity</div>
-        <div class="sensor-value loading" id="lux-value">--</div>
-        <div class="sensor-unit">LUX</div>
-      </div>
-    </main>
-  </div>
-
-  <!-- 🌤️ Weather Emoji & State -->
-  <div class="weather-card" id="weatherCard">
-    <div class="emoji" id="weatherEmoji">🌞</div>
-    <h2 id="weatherState">Sunny & Pleasant</h2>
-  </div>
-
-  <!-- 📥 Footer Section -->
-  <footer class="custom-footer">
-
-    <!-- ℹ️ Footer Info -->
-    <div style="text-align: center; margin-bottom: 8px;">
-      <h2 style="font-size: 15px; font-weight: 600; margin: 4px 0;">🌤️ Weather Station Dashboard</h2>
-      <p style="margin: 4px 0; color: #555; font-size: 12px;">
-        A Smart Monitoring Platform for tracking and improving your environmental awareness
-      </p>
-    </div>
-
-    <!-- 🔗 Social Media Links -->
-    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px;">
-      <div style="display: flex; gap: 16px;">
-
-        <!-- 👤 Divyansh -->
-        <a href="https://www.linkedin.com/in/divyansh---rajput" target="_blank" class="icon-container">
-          <span class="tooltip">Divyansh (LinkedIn)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
-        </a>
-        <a href="https://github.com/Divyansh-89" target="_blank" class="icon-container">
-          <span class="tooltip">Divyansh (GitHub)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
-        </a>
-
-        <!-- 👤 Abhay -->
-        <a href="https://www.linkedin.com/in/abhay-palway-95944a348" target="_blank" class="icon-container">
-          <span class="tooltip">Abhay (LinkedIn)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
-        </a>
-        <a href="https://github.com/Iot-abhay" target="_blank" class="icon-container">
-          <span class="tooltip">Abhay (GitHub)</span>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
-        </a>
-      </div>
-    </div>
-
-    <!-- 🧾 Bottom Credit Row -->
-    <div style="
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: #6b7280;
-    ">
-      <span>© 2025 Weather Station Dashboard</span>
-      <span>Developed by Divyansh Rajput & Abhay Palway</span>
-    </div>
-
-  </footer>
-
+  <!-- 📜 SCRIPT SECTION -->
+  <script src="JS/script.js"></script>
 </body>
 
 </html>

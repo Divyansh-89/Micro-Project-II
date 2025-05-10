@@ -1,49 +1,82 @@
 /* --------------------------------------------------
-   Import Google Font: Poppins (weights: 400, 600)
+   Google Fonts: Import Poppins Font (400, 600 weight)
 -------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* --------------------------
-   Global Body Styling
--------------------------- */
+/* --------------------------------------------------
+   Base HTML & Body Setup
+-------------------------------------------------- */
+html,
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #c9d6ff, #e2e2e2); /* Soft gradient background */
+  height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* Glass blur overlay over the entire body */
+/* --------------------------------------------------
+   Global Body Styling with Glass Blur Effect
+-------------------------------------------------- */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+  /* soft gradient */
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
 body::before {
   content: '';
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(255, 255, 255, 0.3);
+  /* semi-transparent overlay */
   backdrop-filter: blur(4px);
+  /* blur background */
   z-index: -1;
+  /* behind all content */
 }
 
-/* -------------------------------
-   Main Layout Container
-------------------------------- */
+/* --------------------------------------------------
+   Page Layout: Wrapper & Main Content Container
+-------------------------------------------------- */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 main {
+  flex: 1 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
   padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* ------------------------------------------
-   Sensor Card (for displaying sensor data)
------------------------------------------- */
+/* --------------------------------------------------
+   Sensor Card Styling (Display Sensor Data)
+-------------------------------------------------- */
 .sensor-card {
+  width: 260px;
+  padding: 30px 40px;
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
   border-radius: 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  padding: 30px 40px;
-  width: 260px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -53,7 +86,6 @@ main {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Sensor Card Text Styling */
 .sensor-title {
   font-size: 1.5rem;
   font-weight: 600;
@@ -73,111 +105,13 @@ main {
   margin-top: 5px;
 }
 
-/* ---------------------------
-   Responsive Layout (Mobile)
---------------------------- */
-@media (max-width: 768px) {
-  main {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-
-/* --------------------------
-   Animation: Fade In Effect
--------------------------- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ----------------------------------
-   Utility Class: Glass Effect Box
----------------------------------- */
-.glass {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* Loading State for Sensor Values */
-.sensor-value.loading {
-  color: #aaa;
-  animation: pulse 1.2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-/* -------------------------------------
-   Status Indicator (Live / Offline Tag)
-------------------------------------- */
-.status-indicator {
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 25px;
-  display: inline-block;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
-  position: relative;
-}
-
-/* Live Status */
-.status-indicator.live {
-  color: #00e676;
-  background-color: #e0fff1;
-  box-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
-  animation: pulse-glow 1.5s ease-in-out infinite;
-}
-
-/* Offline Status */
-.status-indicator.offline {
-  color: #ff1744;
-  background-color: #ffe6ea;
-  box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
-  animation: blink-fade 1.2s ease-in-out infinite;
-}
-
-/* Glow Animation for Live */
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 8px rgba(0, 230, 118, 0.3), 0 0 12px rgba(0, 230, 118, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.6);
-  }
-}
-
-/* Blink Fade for Offline */
-@keyframes blink-fade {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-/* -----------------------------------------
+/* --------------------------------------------------
    Weather Card with Emoji + Pop Animation
------------------------------------------ */
+-------------------------------------------------- */
 .weather-card {
   width: 320px;
-  padding: 28px 22px;
-  border-radius: 30px;
+  padding: 24px 12px;
+  border-radius: 24px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(135, 206, 250, 0.18));
   backdrop-filter: blur(22px) saturate(200%);
   -webkit-backdrop-filter: blur(22px) saturate(200%);
@@ -188,11 +122,10 @@ main {
     inset 0 0 3px rgba(135, 206, 250, 0.1);
   color: #1c1c1c;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(.4, 2, .6, 1);
   animation: popIn 0.6s ease forwards;
   margin: 40px auto;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  position: relative;
   transform-style: preserve-3d;
   will-change: transform;
   overflow: hidden;
@@ -204,19 +137,16 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-/* Emoji inside Weather Card */
 .weather-card .emoji {
   font-size: 56px;
   margin-bottom: 16px;
   animation: bounce 2s infinite ease-in-out, glow 3s ease-in-out infinite;
 }
 
-/* On Hover Emoji Bounces Larger */
 .weather-card:hover .emoji {
   transform: scale(1.25);
 }
 
-/* Weather Title Text */
 .weather-card h2 {
   font-size: 24px;
   margin: 0;
@@ -224,29 +154,184 @@ main {
   color: #333;
 }
 
-/* Pop In Effect for Card */
+/* --------------------------------------------------
+   Status Indicators: Live & Offline
+-------------------------------------------------- */
+.status-indicator {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 25px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  margin: 8px 0;
+}
+
+.status-indicator.live {
+  color: #00e676;
+  background-color: #e0fff1;
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.status-indicator.offline {
+  color: #ff1744;
+  background-color: #ffe6ea;
+  box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
+  animation: blink-fade 1.2s ease-in-out infinite;
+}
+
+/* --------------------------------------------------
+   Utility & Effects
+-------------------------------------------------- */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sensor-value.loading {
+  color: #aaa;
+  animation: pulse 1.2s infinite;
+}
+
+/* --------------------------------------------------
+   Media Queries (Responsive Design)
+-------------------------------------------------- */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px 8px;
+  }
+
+  .weather-card {
+    margin: 20px auto;
+    width: 95%;
+    max-width: 350px;
+  }
+
+  .sensor-card {
+    width: 90%;
+    min-width: 180px;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px 10px;
+  }
+
+  .ip-input-section {
+    margin: 20px auto;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    gap: 8px;
+    padding: 10px 2px;
+  }
+
+  .sensor-card,
+  .weather-card {
+    width: 98%;
+    max-width: 100%;
+    padding: 12px 4px;
+  }
+
+  .ip-input-section {
+    margin: 10px auto;
+    padding: 8px;
+  }
+}
+
+/* --------------------------------------------------
+   Animations
+-------------------------------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.3), 0 0 12px rgba(0, 230, 118, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.6);
+  }
+}
+
+@keyframes blink-fade {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
 @keyframes popIn {
   0% {
     opacity: 0;
     transform: scale(0.95);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Bounce Animation for Emoji */
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-/* Glow Animation for Emoji */
 @keyframes glow {
-  0%, 100% {
+
+  0%,
+  100% {
     text-shadow: 0 0 5px #fff, 0 0 8px #fff;
   }
+
   50% {
     text-shadow: 0 0 15px #fff, 0 0 25px #fff;
   }
@@ -310,4 +395,18 @@ main {
   transform: translateY(-2px);
   background: linear-gradient(135deg, #0056b3, #003c80);
   box-shadow: 0 6px 14px rgba(0, 123, 255, 0.5);
+}
+
+button:focus,
+input:focus,
+.icon-container:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sensor-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  }
 }

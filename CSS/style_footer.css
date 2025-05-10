@@ -1,44 +1,54 @@
-/* -----------------------------------
+/* ---------------------------------------------------
 📌 FOOTER STYLING: .custom-footer
------------------------------------ */
+--------------------------------------------------- */
 .custom-footer {
-  background-color: #dbeafe; /* Light blue background */
-  padding: 12px 16px; /* Inner spacing for content */
-  position: absolute; /* Stick to the bottom of the page */
-  bottom: 0;
-  left: 0;
-  width: 100%; /* Full width of the viewport */
+  /* Layout & Appearance */
+  background-color: #dbeafe;
+  padding: 12px 16px;
+  margin-top: 24px;
 
-  font-family: 'Poppins', sans-serif; /* Clean, modern font */
-  font-size: 13px; /* Small text size */
-  color: #1e3a8a; /* Deep blue text color */
+  /* Text */
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #1e3a8a;
 
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Shadow on top edge */
-  z-index: 10; /* Stay on top of other elements */
+  /* Depth */
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+
+  /* Layering */
+  z-index: 10;
+
+  /* 🔸 Removed: position, bottom, left, width */
 }
 
 
-/* -----------------------------------
+
+/* ---------------------------------------------------
 🔘 SOCIAL ICON BUTTON: .icon-container
------------------------------------ */
+--------------------------------------------------- */
 .icon-container {
-  background-color: white; /* Clean white button base */
-  border-radius: 50%; /* Perfect circular shape */
+  /* Shape & Size */
   width: 36px;
   height: 36px;
+  border-radius: 50%; /* Perfect circular shape */
 
-  display: flex; /* Center the icon */
+  /* Layout */
+  display: flex;
   justify-content: center;
   align-items: center;
-
-  filter: grayscale(100%); /* Start in grayscale */
-  transition: all 0.3s ease; /* Smooth hover transitions */
   position: relative;
-  text-decoration: none; /* Remove default link styling */
 
-  /* ⬛ Strong border and shadow for 3D effect */
+  /* Style */
+  background-color: white; /* Clean white button base */
+  text-decoration: none; /* Remove default link styling */
+  filter: grayscale(100%); /* Start in grayscale */
+
+  /* Border & Shadow */
   border: 1.5px solid rgba(0, 0, 0, 0.2); /* Subtle dark border */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Depth with dark shadow */
+
+  /* Animation */
+  transition: all 0.3s ease; /* Smooth hover transitions */
 }
 
 
@@ -50,31 +60,40 @@
 }
 
 
-/* 🖼️ IMAGE INSIDE ICON */
+
+/* ---------------------------------------------------
+🖼️ IMAGE INSIDE ICON
+--------------------------------------------------- */
 .icon-container img {
   width: 20px; /* Size of the social icon */
   height: 20px;
 }
 
 
-/* -----------------------------------
+
+/* ---------------------------------------------------
 💬 TOOLTIP STYLING: .tooltip
------------------------------------ */
+--------------------------------------------------- */
 .tooltip {
+  /* Positioning */
   position: absolute; /* Positioned relative to icon */
+  top: -28px; /* Appear above the icon */
+
+  /* Appearance */
   background-color: #1e40af; /* Rich blue background */
   color: white; /* White text for contrast */
-  padding: 2px 8px; /* Compact tooltip */
-  border-radius: 6px; /* Rounded corners */
-  font-size: 10px; /* Small readable font */
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  white-space: nowrap; /* Prevent text wrapping */
 
+  /* Animation */
   opacity: 0; /* Start hidden */
   transform: translateY(0); /* No offset initially */
   transition: all 0.2s ease; /* Smooth pop-up animation */
-  pointer-events: none; /* Don’t interfere with clicks */
 
-  top: -28px; /* Appear above the icon */
-  white-space: nowrap; /* Prevent text wrapping */
+  /* Interaction */
+  pointer-events: none; /* Don’t interfere with clicks */
 }
 
 
