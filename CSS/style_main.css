@@ -112,7 +112,7 @@ main {
   width: 320px;
   padding: 24px 12px;
   border-radius: 24px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(135, 206, 250, 0.18));
+  background: linear-gradient(145deg, #89f7fe, #66a6ff);
   backdrop-filter: blur(22px) saturate(200%);
   -webkit-backdrop-filter: blur(22px) saturate(200%);
   box-shadow:
@@ -157,30 +157,202 @@ main {
 /* --------------------------------------------------
    Status Indicators: Live & Offline
 -------------------------------------------------- */
+/* ------------------------------------
+ * 🌟 ULTRA PREMIUM STATUS INDICATOR
+ * ------------------------------------ */
 .status-indicator {
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 25px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 10px 26px 10px 18px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 0.6px;
+  background: linear-gradient(135deg, #f0f7fa 0%, #d9e8f5 100%);
+  box-shadow:
+    0 4px 12px rgba(66, 133, 244, 0.12),
+    inset 0 0 8px rgba(255, 255, 255, 0.7);
+  color: #2c3e50;
+  position: relative;
+  border: 1.8px solid #a8c4ff;
+  transition:
+    box-shadow 0.35s cubic-bezier(.4, 0, .2, 1),
+    border-color 0.35s cubic-bezier(.4, 0, .2, 1),
+    background 0.35s cubic-bezier(.4, 0, .2, 1),
+    color 0.35s cubic-bezier(.4, 0, .2, 1);
+  margin: 10px 0;
+  cursor: default;
+  user-select: none;
+}
+
+/* Focus ring for accessibility */
+.status-indicator:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #93c5fd88;
+}
+
+/* Status dot base */
+.status-indicator::before {
+  content: '';
   display: inline-block;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease;
-  margin: 8px 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #b0b7c3;
+  box-shadow: 0 0 0 0 #fff0;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* LIVE STATUS */
 .status-indicator.live {
-  color: #00e676;
-  background-color: #e0fff1;
-  box-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
-  animation: pulse-glow 1.5s ease-in-out infinite;
+  color: #10b981;
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #34d399;
+  box-shadow:
+    0 0 24px 4px rgba(16, 185, 129, 0.5),
+    inset 0 0 15px rgba(22, 163, 74, 0.3);
+  animation: pulse-glow 1.8s cubic-bezier(.4, 0, .2, 1) infinite;
 }
 
+.status-indicator.live::before {
+  background: radial-gradient(circle at 50% 50%, #34d399 60%, #059669 100%);
+  box-shadow:
+    0 0 10px 2px #34d399aa,
+    0 0 20px 6px #10b98188;
+  animation: status-dot-pulse 1.5s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+/* OFFLINE STATUS */
 .status-indicator.offline {
-  color: #ff1744;
-  background-color: #ffe6ea;
-  box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
-  animation: blink-fade 1.2s ease-in-out infinite;
+  color: #ef4444;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #f87171;
+  box-shadow:
+    0 0 24px 4px rgba(239, 68, 68, 0.5),
+    inset 0 0 15px rgba(220, 38, 38, 0.3);
+  animation: blink-fade 1.6s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+.status-indicator.offline::before {
+  background: radial-gradient(circle at 50% 50%, #f87171 60%, #b91c1c 100%);
+  box-shadow:
+    0 0 10px 2px #f8717188,
+    0 0 20px 6px #ef444488;
+  animation: status-dot-blink 1.3s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+/* ------------------------------------
+ * ANIMATIONS
+ * ------------------------------------ */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 24px 4px rgba(16, 185, 129, 0.5),
+      inset 0 0 15px rgba(22, 163, 74, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 0 32px 8px rgba(16, 185, 129, 0.7),
+      inset 0 0 25px rgba(22, 163, 74, 0.5);
+  }
+}
+
+@keyframes status-dot-pulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px 2px #34d399aa,
+      0 0 20px 6px #10b98188;
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px 6px #34d399cc,
+      0 0 32px 12px #10b981cc;
+  }
+}
+
+@keyframes blink-fade {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes status-dot-blink {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px 2px #f8717188,
+      0 0 20px 6px #ef444488;
+    opacity: 1;
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px 6px #f87171cc,
+      0 0 32px 12px #ef4444cc;
+    opacity: 0.4;
+  }
+}
+
+/* ------------------------------------
+ * DARK MODE SUPPORT
+ * ------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  .status-indicator {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #e0e7ff;
+    border-color: #374151;
+    box-shadow:
+      0 4px 12px rgba(66, 133, 244, 0.3),
+      inset 0 0 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .status-indicator.live {
+    color: #6ee7b7;
+    background: linear-gradient(135deg, #134e4a 0%, #064e3b 100%);
+    border-color: #059669;
+    box-shadow:
+      0 0 28px 6px #34d39955,
+      inset 0 0 20px #10b98144;
+  }
+
+  .status-indicator.live::before {
+    background: radial-gradient(circle at 50% 50%, #34d399 60%, #059669 100%);
+    box-shadow:
+      0 0 14px 4px #34d399cc,
+      0 0 28px 10px #10b981cc;
+  }
+
+  .status-indicator.offline {
+    color: #fecaca;
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    border-color: #b91c1c;
+    box-shadow:
+      0 0 28px 6px #f8717155,
+      inset 0 0 20px #991b1b44;
+  }
+
+  .status-indicator.offline::before {
+    background: radial-gradient(circle at 50% 50%, #f87171 60%, #b91c1c 100%);
+    box-shadow:
+      0 0 14px 4px #f87171cc,
+      0 0 28px 10px #ef4444cc;
+  }
 }
 
 /* --------------------------------------------------
@@ -337,76 +509,345 @@ main {
   }
 }
 
-/* ------------------------------------------------
-   IP Input Section: For entering ESP IP address
------------------------------------------------- */
-.ip-input-section {
-  text-align: center;
-  margin: 40px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #e9ecef, #ced4da);
-  border-radius: 15px;
-  max-width: 650px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #dee2e6;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
 
-.ip-input-section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* IP Input Text Field */
-.ip-input-section input[type="text"] {
-  padding: 14px 20px;
-  border-radius: 30px;
-  border: 1.5px solid #adb5bd;
-  width: clamp(200px, 70%, 400px);
-  font-size: 1.1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  outline: none;
-  background-color: #f8f9fa;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.075);
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  margin-right: 15px;
-}
-
-.ip-input-section input[type="text"]:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
-}
-
-/* IP Submit Button */
-.ip-input-section button {
-  padding: 14px 22px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  color: white;
-  font-weight: 500;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-}
-
-.ip-input-section button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #0056b3, #003c80);
-  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.5);
-}
-
-button:focus,
-input:focus,
-.icon-container:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
-}
 
 @media (hover: hover) and (pointer: fine) {
   .sensor-card:hover {
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
   }
+}
+
+/* --------------------------------------------------
+   Dynamic Weather Background Animation Styles
+-------------------------------------------------- */
+
+/* Base Background Container */
+.background-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  overflow: hidden;
+  transition: all 2s ease-in-out;
+}
+
+/* =====================================
+   DAY SCENE STYLES (LUX = 1)
+===================================== */
+.day-scene {
+  background: linear-gradient(to bottom, #87CEEB 0%, #E0F7FA 100%);
+}
+
+/* Sun Styling */
+.sun {
+  position: absolute;
+  top: 15%;
+  left: 80%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #FFD700 20%, #FFA500 60%, rgba(255, 165, 0, 0) 70%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 50px #FFA500,
+    0 0 100px #FF8C00,
+    0 0 150px rgba(255, 140, 0, 0.5);
+  animation: sun-glow 8s infinite alternate, sun-move 120s infinite linear;
+}
+
+/* Sun Rays */
+.sun::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0) 70%);
+  z-index: -1;
+  animation: sun-pulse 4s infinite alternate;
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.8),
+    inset 0 -15px 15px rgba(0, 0, 0, 0.1);
+  filter: blur(2px);
+}
+
+.cloud-1 {
+  width: 180px;
+  height: 60px;
+  top: 20%;
+  left: -180px;
+  animation: cloud-move-1 80s linear infinite;
+}
+
+.cloud-2 {
+  width: 150px;
+  height: 50px;
+  top: 35%;
+  left: -150px;
+  animation: cloud-move-2 120s linear infinite;
+}
+
+.cloud-3 {
+  width: 200px;
+  height: 70px;
+  top: 15%;
+  left: -200px;
+  animation: cloud-move-3 100s linear infinite;
+}
+
+/* Cloud Puffs */
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.cloud-1::before {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 20px;
+}
+
+.cloud-1::after {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 80px;
+}
+
+.cloud-2::before {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  left: 15px;
+}
+
+.cloud-2::after {
+  width: 85px;
+  height: 85px;
+  top: -45px;
+  left: 60px;
+}
+
+.cloud-3::before {
+  width: 90px;
+  height: 90px;
+  top: -45px;
+  left: 25px;
+}
+
+.cloud-3::after {
+  width: 110px;
+  height: 110px;
+  top: -55px;
+  left: 85px;
+}
+
+/* =====================================
+   NIGHT SCENE STYLES (LUX = 0)
+===================================== */
+.night-scene {
+  background: linear-gradient(to bottom, #000106 0%, #000002 40%, #283593 100%);
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: 15%;
+  left: 75%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 35% 35%, #FFFAE5 30%, #ECE9E1 60%, #BEBDB9 100%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.8),
+    0 0 40px rgba(255, 255, 255, 0.4);
+  animation: moon-glow 10s infinite alternate;
+}
+
+/* Moon craters */
+.moon::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 20px;
+  height: 20px;
+  background: rgba(200, 200, 200, 0.3);
+  border-radius: 50%;
+  box-shadow:
+    45px 10px 0 -5px rgba(200, 200, 200, 0.3),
+    25px 45px 0 -2px rgba(200, 200, 200, 0.3),
+    65px 50px 0 -8px rgba(200, 200, 200, 0.3);
+}
+
+/* Stars */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: star-twinkle var(--twinkle-duration, 4s) infinite ease-in-out;
+}
+
+/* =====================================
+   ANIMATIONS
+===================================== */
+
+/* Day Animations */
+@keyframes sun-glow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 50px #FFA500,
+      0 0 100px rgba(255, 165, 0, 0.8);
+  }
+
+  50% {
+    box-shadow:
+      0 0 60px #FFA500,
+      0 0 120px rgba(255, 165, 0, 0.9),
+      0 0 180px rgba(255, 140, 0, 0.4);
+  }
+}
+
+@keyframes sun-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sun-move {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes cloud-move-1 {
+  0% {
+    left: -180px;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes cloud-move-2 {
+  0% {
+    left: -150px;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes cloud-move-3 {
+  0% {
+    left: -200px;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Night Animations */
+@keyframes moon-glow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.8),
+      0 0 40px rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 255, 255, 0.9),
+      0 0 50px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes star-twinkle {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Header bar */
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 30px 10px 30px;
+  background: transparent;
+  z-index: 2;
+  position: relative;
+}
+
+.logo-btn {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.logo-btn:hover {
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #23395d;
+  letter-spacing: 1px;
+  user-select: none;
 }

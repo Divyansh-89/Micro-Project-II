@@ -1,129 +1,492 @@
-/* -----------------------------------
-🌟 LOGO STYLING (Image inside header)
------------------------------------ */
-header img {
-    width: 40px; /* Maintain a consistent width */
-    height: auto; /* Preserve aspect ratio */
-    margin-right: 16px; /* Gap between logo and heading */
-    transition: transform 0.3s ease; /* Smooth scaling on hover */
+/* ====================================================== */
+/* 🏆 PREMIUM WEATHER STATION - HEADER COMPONENT STYLES   */
+/* ====================================================== */
+
+/* -------------------------------
+   🌈 CSS CUSTOM PROPERTIES 
+   ------------------------------- */
+:root {
+  --header-gradient: linear-gradient(135deg, #f7c8d0, #c3cfe2, #a6c1ee);
+  --header-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(231, 240, 253, 0.85));
+  --header-active-bg: linear-gradient(135deg, #f2d0a4, #f9d29d);
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-accent: #3182ce;
+  --shadow-normal: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+  --border-radius: 22px;
+  --transition-speed: 0.3s;
+  --font-family: 'Poppins', sans-serif;
 }
 
-/* 🔍 Hover effect for the logo */
-header img:hover {
-    transform: scale(1.1); /* Slight enlargement on hover */
+/* -------------------------------
+   🏁 HEADER BASE STYLES 
+   ------------------------------- */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  position: relative;
+  z-index: 2;
+  background: var(--header-gradient);
+  background-size: 200% 200%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-normal);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards, gradientShift 15s ease infinite;
+  will-change: transform, box-shadow, background-position;
+  transition: all var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  gap: 16px;
 }
 
-
-/* -----------------------------------
-📝 HEADER TEXT STYLING (h2)
------------------------------------ */
-header h2 {
-    font-family: 'Poppins', sans-serif; /* Modern, clean font */
-    font-weight: 600; /* Bold for emphasis */
-    font-size: 26px; /* Prominent size */
-    color: #333; /* Dark grey for better visibility */
-    margin: 0; /* Remove default margin */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25); /* Soft shadow for depth */
-}
-
-
-/* -----------------------------------
-🎯 HEADER CONTAINER INTERACTIONS
------------------------------------ */
-
-/* Hover state of the entire header */
+/* -------------------------------
+   🎯 HEADER INTERACTION STATES 
+   ------------------------------- */
 header:hover {
-    background-color: rgba(255, 255, 255, 0.85); /* Subtle background change */
-    transform: translateY(-5px) scale(1.02); /* Slight pop-out effect */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Deeper shadow for elevation */
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--header-hover-bg);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Click/active effect on the header */
 header:active {
-    transform: scale(0.98) translateY(2px); /* Shrink slightly inward */
-    background-color: #f2d0a4; /* Gentle peach tint on click */
+  transform: scale(0.98) translateY(2px);
+  background: var(--header-active-bg);
 }
 
-
-/* -----------------------------------
-🌅 PAGE LOAD ANIMATION FOR HEADER
------------------------------------ */
-header {
-    opacity: 0; /* Start invisible */
-    animation: fadeIn 1s ease forwards; /* Fade in smoothly */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0));
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1; /* End fully visible */
-    }
+/* -------------------------------
+   🏷️ LOGO STYLES 
+   ------------------------------- */
+header img {
+  width: 42px;
+  height: auto;
+  margin-right: 20px;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+  transform-origin: center;
+  transition: all var(--transition-speed) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-
-/* -----------------------------------
-📱 RESPONSIVE DESIGN: Mobile Screens
------------------------------------ */
-@media (max-width: 600px) {
-    header {
-        padding: 10px 15px; /* Tighter padding on small screens */
-    }
-    header h2 {
-        font-size: 22px; /* Smaller font size for better fit */
-    }
+header img:hover {
+  transform: scale(1.2) rotate(8deg);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3)) brightness(1.05);
 }
 
-
-/* -----------------------------------
-🧱 MAIN HEADER STRUCTURE & LAYOUT
------------------------------------ */
-header {
-    display: flex; /* Arrange children in a row */
-    align-items: center; /* Vertically center logo and text */
-    justify-content: space-between; /* Space between text and date/time */
-    padding: 12px 25px; /* Spacing inside the header */
-    background: linear-gradient(to right, #f7c8d0, #c3cfe2); /* Smooth gradient background */
-    border-radius: 20px; /* Soft, rounded edges */
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Subtle drop shadow */
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
-    position: relative; /* For positioning child elements if needed */
+/* -------------------------------
+   ✏️ TEXT STYLES 
+   ------------------------------- */
+header h2 {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 28px);
+  color: var(--text-primary);
+  margin: 0;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #2d3748, #4a5568);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-
-/* -----------------------------------
-🕓 DATE & TIME DISPLAY STYLING
------------------------------------ */
+/* -------------------------------
+   ⏱️ DATE & TIME COMPONENT 
+   ------------------------------- */
 .date-time {
-    color: #333; /* Primary text color */
-    font-size: 16px; /* Base font size */
-    text-align: right; /* Align text to the right side */
-    font-family: 'Poppins', sans-serif; /* Match with header text */
-    display: flex; /* Use column layout */
-    flex-direction: column;
-    gap: 5px; /* Spacing between date and time */
-    padding-right: 20px; /* Padding from the right edge */
-    min-width: 160px; /* Prevent content from shrinking */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: clamp(120px, 20%, 180px);
+  padding-right: 10px;
+  text-align: right;
+  font-family: var(--font-family);
+  position: relative;
+  margin-left: auto;
+  text-align: right;
 }
 
+.date-time::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 10px;
+  width: 0;
+  height: 2px;
+  background: var(--text-accent);
+  transition: width 0.3s ease;
+}
 
-/* 💬 General paragraph style inside date-time */
+.date-time:hover::after {
+  width: 80%;
+}
+
 .date-time p {
-    margin: 0; /* Remove default spacing */
-    font-weight: 600; /* Make it slightly bold */
-    font-variant-numeric: tabular-nums; /* Fixed-width digits for better alignment */
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 
-
-/* 📅 Specific Date Styling */
 .date-time #date {
-    font-size: 18px;
-    color: #555; /* Slightly lighter grey for contrast */
+  font-size: clamp(16px, 2.5vw, 18px);
+  color: var(--text-secondary);
+  opacity: 0.9;
+  transition: transform 0.3s ease;
 }
 
-
-/* ⏰ Specific Time Styling */
 .date-time #time {
-    font-size: 22px;
-    color: #333; /* Darker for prominence */
-    font-weight: 700; /* Bolder to make it stand out */
+  font-size: clamp(20px, 3vw, 24px);
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  transition: all 0.3s ease;
+}
+
+.date-time:hover #time {
+  color: var(--text-accent);
+  text-shadow: 0 0 8px rgba(49, 130, 206, 0.3);
+  transform: translateX(-3px);
+}
+
+.date-time:hover #date {
+  transform: translateX(-2px);
+}
+
+/* -------------------------------
+   🎬 ANIMATIONS 
+   ------------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes timePulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.date-time #time::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #38b2ac;
+  border-radius: 50%;
+  margin-left: 8px;
+  margin-bottom: 2px;
+  animation: timePulse 2s infinite ease-in-out;
+}
+
+/* -------------------------------
+   📱 RESPONSIVE DESIGN 
+   ------------------------------- */
+@media (max-width: 600px) {
+  header {
+    padding: 12px 18px;
+    border-radius: 18px;
+  }
+  header img {
+    width: 38px;
+    margin-right: 14px;
+  }
+  .date-time {
+    padding-right: 5px;
+  }
+  .date-time #time::after {
+    width: 5px;
+    height: 5px;
+    margin-left: 6px;
+  }
+}
+
+/* -------------------------------
+   🌙 DARK MODE SUPPORT 
+   ------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-gradient: linear-gradient(135deg, #3a4a5e, #2c3e50);
+    --header-hover-bg: linear-gradient(135deg, #334155, #475569);
+    --header-active-bg: linear-gradient(135deg, #4a5568, #334155);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-accent: #60a5fa;
+    --shadow-normal: 0 10px 20px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.22);
+    --shadow-hover: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+  header h2 {
+    background: linear-gradient(90deg, #f8fafc, #cbd5e1);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  header::before {
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0));
+  }
+}
+
+/* -------------------------------
+   ♿ ACCESSIBILITY 
+   ------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  header,
+  header *,
+  .date-time::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ====================================================== */
+/* 🏆 PREMIUM WEATHER STATION - SIDEBAR COMPONENT STYLES  */
+/* ====================================================== */
+
+/* -------------------------------
+   🚪 SIDEBAR BASE STYLES 
+   ------------------------------- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  max-width: 90vw;
+  height: 100vh;
+  background: linear-gradient(120deg, rgba(248, 250, 252, 0.85) 0%, rgba(224, 231, 255, 0.85) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1.5px solid rgba(200, 200, 200, 0.18);
+  box-shadow: 2px 0 24px rgba(60, 60, 120, 0.07);
+  padding: 32px 24px 24px 24px;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(.4, 2, .6, 1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* -------------------------------
+   🔘 BUTTON STYLES 
+   ------------------------------- */
+.sidebar-toggle-btn,
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+/* Sidebar toggle specific */
+.sidebar-toggle-btn {
+  font-size: 2.2rem;
+  color: #eef0f4;
+  margin-left: 18px;
+}
+
+.sidebar-toggle-btn:hover {
+  color: #007bff;
+}
+
+/* Close button specific */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 2em;
+  color: #888;
+}
+
+/* Focus states */
+.sidebar-toggle-btn:focus,
+.close-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.sidebar-toggle-btn:focus-visible,
+.close-btn:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* -------------------------------
+   📝 SIDEBAR TYPOGRAPHY 
+   ------------------------------- */
+.sidebar h3 {
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: #2c3e50;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #6a11cb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  cursor: default;
+  transition: color 0.3s ease;
+}
+
+.sidebar h3:hover {
+  color: #6a11cb;
+  border-color: #2575fc;
+}
+
+.input-subheading {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4a4f69;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+  user-select: none;
+  padding-left: 2px;
+}
+
+/* -------------------------------
+   🔌 IP INPUT SECTION 
+   ------------------------------- */
+.ip-input-section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 28px auto;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 6px 32px 0 rgba(60, 60, 120, 0.13);
+  border: 1.5px solid rgba(106, 17, 203, 0.13);
+  padding: 8px 14px 8px 18px;
+  gap: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ip-input-section input[type="text"] {
+  flex: 1 1 0%;
+  border: none;
+  background: transparent;
+  font-size: 1.13rem;
+  color: #23284a;
+  padding: 12px 8px 12px 0;
+  outline: none;
+  font-weight: 500;
+  border-radius: 999px;
+  min-width: 0;
+  transition: background 0.18s, color 0.18s;
+}
+
+.ip-input-section input[type="text"]::placeholder {
+  color: #8ca1c7;
+  opacity: 1;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.ip-input-section input[type="text"]:focus {
+  color: #111;
+  background: rgba(255, 255, 255, 0.33);
+}
+
+.ip-input-section button {
+  border: none;
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.17);
+  position: relative;
+  overflow: visible;
+  transition: background 0.17s, transform 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+.ip-input-section button .glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle, #6a11cb44 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s, transform 0.22s;
+  z-index: 0;
+}
+
+.ip-input-section button:hover .glow,
+.ip-input-section button:focus .glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.ip-input-section button:disabled {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+   
+.ip-input-section button:hover:not(:disabled) {
+  background: #222;
+  transform: scale(1.09);
 }
