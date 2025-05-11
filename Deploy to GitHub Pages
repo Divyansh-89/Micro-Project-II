@@ -1,0 +1,21 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Use the branch where your code is pushed, such as 'main' or 'gh-pages'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages  # Deploy to this branch (create gh-pages branch if it doesn’t exist)
+        folder: build     # This is the folder where your build files (HTML, CSS, etc.) are located
+        token: ${{ secrets.GITHUB_TOKEN }}
