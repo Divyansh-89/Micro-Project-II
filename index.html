@@ -2,49 +2,56 @@
 <html lang="en">
 
 <head>
-  <!-- 🌐 Basic Meta Setup -->
+  <!-- ========== META INFORMATION ========== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Weather Station Dashboard for monitoring temperature and humidity in real-time" />
+  <meta name="author" content="Divyansh Rajput & Abhay Palway" />
 
-  <!-- 🔤 Google Fonts -->
+  <!-- ========== GOOGLE FONTS ========== -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- 🧾 Page Title 👏-->
+  <!-- ========== PAGE TITLE ========== -->
   <title>Weather Station Dashboard</title>
 
-  <!-- 🎨 External Stylesheets -->
-  <link rel="stylesheet" href="CSS/style_header.css" />
-  <link rel="stylesheet" href="CSS/style_main.css" />
-  <link rel="stylesheet" href="CSS/style_footer.css" />
+  <!-- ========== EXTERNAL STYLESHEETS ========== -->
+  <!-- CSS has been modularized for better maintenance -->
+  <link rel="stylesheet" href="CSS/style_header.css" /> <!-- Header-specific styles -->
+  <link rel="stylesheet" href="CSS/style_main.css" />   <!-- Main content styles -->
+  <link rel="stylesheet" href="CSS/style_footer.css" /> <!-- Footer-specific styles -->
 
-  <!-- 🌐 Favicon -->
+  <!-- ========== FAVICON ========== -->
   <link rel="icon" href="IMAGES/favicon.png" type="image/png" />
 </head>
 
 <body>
+  <!-- Main wrapper for the entire application -->
   <div class="wrapper">
 
-    <!-- 🔷 HEADER: Branding, Date/Time, Sidebar Toggle -->
+    <!-- ========== HEADER SECTION ========== -->
+    <!-- Contains branding, date/time display, and sidebar toggle button -->
     <header>
-      <img src="IMAGES/clouds-and-sun.png" alt="Weather Logo" />
+      <!-- App logo and title -->
+      <img src="IMAGES/clouds-and-sun.png" alt="Weather Station Logo" />
       <h2>Weather Station Dashboard</h2>
 
-      <!-- 🕒 Current Date and Time -->
+      <!-- Current date and time display - populated by JavaScript -->
       <div class="date-time">
         <p id="date"></p>
         <p id="time"></p>
       </div>
 
-      <!-- 📱 Sidebar Hamburger Button -->
-      <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Open sidebar">&#9776;</button>
+      <!-- Mobile-responsive sidebar toggle button -->
+      <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Open settings sidebar">&#9776;</button>
     </header>
 
-    <!-- 🧭 SIDEBAR: Settings Panel -->
+    <!-- ========== SIDEBAR SETTINGS PANEL ========== -->
+    <!-- Hidden by default, toggled with sidebar-toggle button -->
     <aside id="sidebar" class="sidebar">
-      <!-- ❌ Close Sidebar Button -->
-      <button id="sidebar-close" class="close-btn" aria-label="Close sidebar">&times;</button>
+      <!-- Close sidebar button -->
+      <button id="sidebar-close" class="close-btn" aria-label="Close settings sidebar">&times;</button>
 
-      <!-- ⚙️ Settings Title with Icon -->
+      <!-- Settings section heading with gear icon -->
       <h3>
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6a11cb"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -56,7 +63,7 @@
         Settings
       </h3>
 
-      <!-- 🌐 ESP IP Address Input Form -->
+      <!-- ESP32 IP Address connection form -->
       <h5 class="input-subheading">Enter ESP IP Address : </h5>
       <form class="ip-input-section" onsubmit="connectESP(event)">
         <input type="text" id="esp-ip-input" placeholder="e.g., 192.168.1.100" autocomplete="off" spellcheck="false"
@@ -70,26 +77,66 @@
           </svg>
         </button>
       </form>
+
+      <!-- Alert threshold configuration section -->
+      <div class="threshold-controls" style="margin-top: 22px;">
+        <h5 class="input-subheading">Set Alert Thresholds:</h5>
+        <!-- Temperature thresholds -->
+        <label>
+          Temp Min:
+          <input type="number" id="temp-min" value="18" style="width:60px;">
+        </label>
+        <label>
+          Temp Max:
+          <input type="number" id="temp-max" value="35" style="width:60px;">
+        </label>
+        <!-- Humidity thresholds -->
+        <label>
+          Humidity Min:
+          <input type="number" id="hum-min" value="30" style="width:60px;">
+        </label>
+        <label>
+          Humidity Max:
+          <input type="number" id="hum-max" value="60" style="width:60px;">
+        </label>
+        <!-- Save button for thresholds -->
+        <button id="save-thresholds-btn" type="button">
+          <span class="btn-icon">💾</span>
+          Save Thresholds
+        </button>
+      </div>
+
+      <!-- Data clearing option -->
+      <div class="clear-storage-section" style="margin-top: 20px;">
+        <button id="clear-storage-btn" title="Clear all saved data">Clear Local Storage</button>
+      </div>
     </aside>
 
-    <!-- 🔴 ESP CONNECTION STATUS DISPLAY -->
+    <!-- ========== ESP CONNECTION STATUS INDICATOR ========== -->
     <div style="position: absolute; top: 100px; left: 20px;">
       <div class="status-indicator offline" id="status">● Offline</div>
     </div>
 
-    <!-- 🧰 MAIN SENSOR DATA SECTION -->
-    <div class="container">
-
-      <!-- 📊 Sensor Cards -->
+    <!-- ========== MAIN DATA DISPLAY SECTION ========== -->
+    <div class="container" id="dashboard-container">
+      <!-- Toast notifications container for alerts -->
+      <div id="toast-container"></div>
+      
+      <!-- Sensor data cards container -->
       <main>
-        <!-- 🌡️ Temperature Card -->
+        <!-- Temperature sensor card -->
         <div class="sensor-card glass">
           <div class="sensor-title">Temperature</div>
           <div class="sensor-value loading" id="temp-value">--</div>
-          <div class="sensor-unit">°C</div>
+          <div class="sensor-unit">
+            <span>
+              <span id="temp-unit">°C</span>
+              <button id="toggle-temp" class="temp-toggle-btn" title="Toggle °C/°F">⇄</button>
+            </span>
+          </div>
         </div>
 
-        <!-- 💧 Humidity Card -->
+        <!-- Humidity sensor card -->
         <div class="sensor-card glass">
           <div class="sensor-title">Humidity</div>
           <div class="sensor-value loading" id="humidity-value">--</div>
@@ -98,16 +145,15 @@
       </main>
     </div>
 
-    <!-- 🌥️ WEATHER DESCRIPTION & EMOJI DISPLAY -->
+    <!-- ========== WEATHER CONDITION DISPLAY ========== -->
     <div class="weather-card" id="weatherCard">
       <div class="emoji" id="weatherEmoji">🌤️</div>
       <h2 id="weatherState">Loading...</h2>
     </div>
 
-    <!-- 📥 FOOTER SECTION: Info, Links & Credits -->
+    <!-- ========== FOOTER SECTION ========== -->
     <footer class="custom-footer">
-
-      <!-- 📌 Dashboard Description -->
+      <!-- Dashboard description -->
       <div style="text-align: center; margin-bottom: 8px;">
         <h2 class="footer-heading">🌤️ Weather Station Dashboard</h2>
         <p class="footer-subtitle">
@@ -115,11 +161,10 @@
         </p>
       </div>
 
-      <!-- 🔗 Developer Social Profiles -->
+      <!-- Developer profiles with social links -->
       <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px;">
         <div style="display: flex; gap: 16px;">
-
-          <!-- 👤 Divyansh: LinkedIn & GitHub -->
+          <!-- Divyansh's profiles -->
           <a href="https://www.linkedin.com/in/divyansh---rajput" target="_blank" class="icon-container">
             <span class="tooltip">Divyansh (LinkedIn)</span>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
@@ -130,7 +175,7 @@
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
           </a>
 
-          <!-- 👤 Abhay: LinkedIn & GitHub -->
+          <!-- Abhay's profiles -->
           <a href="https://www.linkedin.com/in/abhay-palway-95944a348" target="_blank" class="icon-container">
             <span class="tooltip">Abhay (LinkedIn)</span>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
@@ -143,7 +188,7 @@
         </div>
       </div>
 
-      <!-- ©️ Footer Legal Info -->
+      <!-- Copyright info -->
       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #6b7280;">
         <span>© 2025 Weather Station Dashboard</span>
         <span>Developed by Divyansh Rajput & Abhay Palway</span>
@@ -151,7 +196,8 @@
     </footer>
   </div>
 
-  <!-- 📜 JavaScript File -->
+  <!-- ========== JAVASCRIPT ========== -->
+  <!-- Main script file - contains all the dashboard functionality -->
   <script src="JS/script.js"></script>
 </body>
 

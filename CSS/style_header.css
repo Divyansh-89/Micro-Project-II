@@ -293,19 +293,23 @@ header h2 {
   width: 320px;
   max-width: 90vw;
   height: 100vh;
+  min-height: 0;
   background: linear-gradient(120deg, rgba(248, 250, 252, 0.85) 0%, rgba(224, 231, 255, 0.85) 100%);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-right: 1.5px solid rgba(200, 200, 200, 0.18);
   box-shadow: 2px 0 24px rgba(60, 60, 120, 0.07);
-  padding: 32px 24px 24px 24px;
+  padding: 32px 24px 18px 24px;   /* Reduced bottom padding */
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(.4, 2, .6, 1);
   z-index: 100;
-  display: flex;
-  flex-direction: column;
+display: block;
+
   gap: 18px;
+  overflow-y: auto;   /* Ensures vertical scroll */
+  overflow-x: hidden;
 }
+
 
 .sidebar.open {
   transform: translateX(0);
@@ -370,12 +374,14 @@ header h2 {
   user-select: none;
   cursor: default;
   transition: color 0.3s ease;
+  
 }
 
 .sidebar h3:hover {
   color: #6a11cb;
   border-color: #2575fc;
 }
+
 
 .input-subheading {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
