@@ -105,7 +105,8 @@ export const ESP32_API_URL = "http://<YOUR_ESP32_IP>/data";
 - Enable GitHub Pages (Settings → Pages → Source: `main`, folder: `/root` or `/docs`)  
 - Access:  
 ```
-https://<your-username>.github.io/Micro-Project-II/
+[(https://divyansh-89.github.io/Micro-Project-II/)]
+
 ```
 
 ---
