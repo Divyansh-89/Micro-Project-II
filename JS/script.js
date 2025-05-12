@@ -129,7 +129,7 @@ function setStatus(isLive) {
 async function fetchSensorData() {
     // Handle test mode
     if (espIP === "test") {
-        updateSensorData(26.7, 47, 0);
+        updateSensorData(70, 18, 0);
         setStatus(true);
         lastUpdateTime = Date.now();
         return;
@@ -281,7 +281,7 @@ function getWeatherState(ldr, temp, humidity) {
             return { state: "Cool & Humid Night", emoji: "🌃", bg: "linear-gradient(to right,rgb(144, 147, 148), #203a43)" };
         } else {
             return { state: "Clear Night", emoji: "✨", bg: "linear-gradient(to right,rgb(88, 140, 237),rgb(108, 154, 206))" };
-        } 
+        }
     }
 
     // ☀️ DAY / BRIGHT CONDITIONS
@@ -448,8 +448,9 @@ function makeShooting(star) {
 /**
  * Shows a toast notification
  * @param {string} message - Message to display in the toast
+ * @param {boolean} [isAlert=false] - Whether this is a critical alert requiring a siren
  */
-function showToast(message) {
+function showToast(message, isAlert = false) {
     const container = document.getElementById('toast-container');
     if (!container) return;
 
@@ -463,7 +464,11 @@ function showToast(message) {
 
     // PREPEND instead of append for newest-first ordering
     container.prepend(toast);
-    playSirenAlert();
+
+    // Only play siren for critical alerts
+    if (isAlert) {
+        playSirenAlert();
+    }
 
     setTimeout(() => {
         toast.classList.add('show');
@@ -480,7 +485,7 @@ function showToast(message) {
  * @param {string} message - Alert message
  */
 function triggerAlert(message) {
-    showToast(message);
+    showToast(message, true);
 }
 
 /**
@@ -557,7 +562,7 @@ function saveThresholds() {
     localStorage.setItem('humMin', humMin);
     localStorage.setItem('humMax', humMax);
 
-    // Show confirmation
+    // Show confirmation toast WITHOUT siren
     showToast("Thresholds saved!");
 }
 
@@ -576,7 +581,6 @@ function checkThresholds(temp, hum) {
     // Check temperature
     if (temp > tempMax) {
         triggerAlert(`Temperature above ${tempMax}°C!`);
-        document.body.style.background = 'linear-gradient(135deg, #ff7e5f, #feb47b)';
     } else if (temp < tempMin) {
         triggerAlert(`Temperature below ${tempMin}°C!`);
     }
