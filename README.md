@@ -137,8 +137,6 @@ Users can set **temperature**, **humidity**, and **light** limits. If any readin
 
 ## 📸 Demo
 
-![Live Demo Links]
-
 ![1](https://github.com/Divyansh-89/Micro-Project-II/blob/d982414611d399bfdb945bcc1b78103bd63f3929/DEMO%20IMAGES/Screenshot%202025-05-12%20003439.png)
 ![2](https://github.com/Divyansh-89/Micro-Project-II/blob/d982414611d399bfdb945bcc1b78103bd63f3929/DEMO%20IMAGES/Screenshot%202025-05-12%20084522.png)
 
