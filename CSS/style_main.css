@@ -1037,11 +1037,11 @@ main {
    ==================================== */
 #toast-container {
   position: absolute;
-  bottom: 90px;
-  right: 28px;
+  top: 200px;
+  left: 28px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex;
   z-index: 99;
   pointer-events: none;
   width: auto;
@@ -1061,17 +1061,6 @@ main {
   }
 }
 
-/* Redundant media query - can be removed */
-@media (max-width: 600px) {
-  #toast-container {
-    left: 0;
-    right: 0;
-    top: 0;
-    align-items: center;
-    padding: 8px;
-    width: 100vw;
-  }
-}
 
 /* Individual toast notification styling */
 .toast {
@@ -1323,4 +1312,40 @@ main {
     font-size: 0.85rem;
     padding: 0.35rem 0.9rem;
   }
+}
+
+
+.chart-container {
+  width: 100%;
+  margin: 24px auto;
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(230,240,255,0.18) 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12), 0 1.5px 5px 0 rgba(0,0,0,0.04);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  transition: box-shadow 0.3s, background 0.3s;
+  border: 1.5px solid rgba(255,255,255,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 180px;
+    max-width: 98vw;
+    padding: 0 4px;
+  }
+}
+
+.sensor-section {
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 }

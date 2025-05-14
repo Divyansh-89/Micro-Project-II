@@ -22,6 +22,7 @@
 
   <!-- ========== FAVICON ========== -->
   <link rel="icon" href="IMAGES/favicon.png" type="image/png" />
+
 </head>
 
 <body>
@@ -124,23 +125,35 @@
 
       <!-- Sensor data cards container -->
       <main>
-        <!-- Temperature sensor card -->
-        <div class="sensor-card glass">
-          <div class="sensor-title">Temperature</div>
-          <div class="sensor-value loading" id="temp-value">--</div>
-          <div class="sensor-unit">
-            <span>
-              <span id="temp-unit">°C</span>
-              <button id="toggle-temp" class="temp-toggle-btn" title="Toggle °C/°F">⇄</button>
-            </span>
+        <!-- Temperature section: card + chart -->
+        <div class="sensor-section">
+          <div class="sensor-card glass">
+            <div class="sensor-title">Temperature</div>
+            <div class="sensor-value loading" id="temp-value">--</div>
+            <div class="sensor-unit">
+              <span>
+                <span id="temp-unit">°C</span>
+                <button id="toggle-temp" class="temp-toggle-btn" title="Toggle °C/°F">⇄</button>
+              </span>
+            </div>
+          </div>
+          <!-- Temperature Graph -->
+          <div class="chart-container">
+            <canvas id="temperatureChart"></canvas>
           </div>
         </div>
 
-        <!-- Humidity sensor card -->
-        <div class="sensor-card glass">
-          <div class="sensor-title">Humidity</div>
-          <div class="sensor-value loading" id="humidity-value">--</div>
-          <div class="sensor-unit">%</div>
+        <!-- Humidity section: card + chart -->
+        <div class="sensor-section">
+          <div class="sensor-card glass">
+            <div class="sensor-title">Humidity</div>
+            <div class="sensor-value loading" id="humidity-value">--</div>
+            <div class="sensor-unit">%</div>
+          </div>
+          <!-- Humidity Graph -->
+          <div class="chart-container">
+            <canvas id="humidityChart"></canvas>
+          </div>
         </div>
       </main>
     </div>
@@ -150,6 +163,7 @@
       <div class="emoji" id="weatherEmoji">🌤️</div>
       <h2 id="weatherState">Loading...</h2>
     </div>
+    
     <!-- ============================================================
      WEATHER FACTS DISPLAY
      Rotating interesting weather facts for the user
@@ -206,6 +220,9 @@
   <!-- ========== JAVASCRIPT ========== -->
   <!-- Main script file - contains all the dashboard functionality -->
   <script src="JS/script.js"></script>
+
+   <!-- ========== CHART.JS LIBRARY ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

@@ -21,8 +21,9 @@
  * 6. Visual Effects & Animations
  * 7. Alert & Notification System
  * 8. Settings & Threshold Management
- * 9. Initialization & Event Listeners
+ * 9. CHARTS & DATA VISUALIZATION MODULE
  * 10. Weather Facts Display
+ * 11. Initialization & Event Listeners
  * ============================================================
  */
 
@@ -42,6 +43,13 @@ let tempC = null;
 let showCelsius = true;
 let audioCtx;
 let lastScene = null;
+const MAX_POINTS = 1000;
+const tempData = [];
+const humData = [];
+const timeLabels = [];
+
+let tempChart, humChart, chartInterval;
+let chartInitialized = false;
 
 // Data refresh intervals (in milliseconds)
 const DATA_FETCH_INTERVAL = 2000;
@@ -182,6 +190,7 @@ function updateSensorData(temp, hum, lux) {
     setStatus(true);
     updateWeatherCardWithBackground(lux, temp, hum);
     checkThresholds(temp, hum);
+    UpdateCharts(temp, hum);
 }
 
 /**
@@ -604,114 +613,133 @@ function clearStorageData() {
     }
 }
 
-/**
- * ============================================================
- * 9. INITIALIZATION & EVENT LISTENERS
- * ============================================================
- */
 
 /**
- * Sets up event listeners for the application
+ * ============================================================
+ * 9. CHARTS & DATA VISUALIZATION MODULE
+ * Manages chart creation and updates for sensor data visualization
+ * ============================================================
  */
-function setupEventListeners() {
-    // IP input event listeners
-    const ipInput = document.getElementById("esp-ip-input");
-    ipInput.addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-            updateESPIP();
+function UpdateCharts(temp, hum) {
+    if (!chartInitialized || Date.now() - lastChartUpdate >= 58000) {
+        const now = new Date();
+        const label = now.getHours().toString().padStart(2, '0') + ':' +
+            now.getMinutes().toString().padStart(2, '0') + ':' +
+            now.getSeconds().toString().padStart(2, '0');
+
+        tempData.push(temp);
+        humData.push(hum);
+        timeLabels.push(label);
+
+        // Keep only the last MAX_POINTS
+        if (tempData.length > MAX_POINTS) {
+            tempData.shift();
+            humData.shift();
+            timeLabels.shift();
         }
-    });
-    ipInput.addEventListener("input", validateIP);
 
-    // Connect button listener
-    const connectBtn = document.getElementById("connect-btn");
-    if (connectBtn) {
-        connectBtn.addEventListener("click", updateESPIP);
+        lastChartUpdate = Date.now();
     }
 
-    // Temperature toggle
-    document.getElementById('toggle-temp').addEventListener('click', function () {
-        showCelsius = !showCelsius;
-        updateTemperatureDisplay();
-    });
+    if (!chartInitialized) {
+        // Initialize Temperature Chart
+        const tempCtx = document.getElementById('temperatureChart').getContext('2d');
+        tempChart = new Chart(tempCtx, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: tempData,
+                    borderColor: '#ff4e50',
+                    backgroundColor: 'rgba(255,78,80,0.08)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
 
-    // Clear storage
-    document.getElementById('clear-storage-btn').addEventListener('click', clearStorageData);
-
-    // Save thresholds
-    document.getElementById('save-thresholds-btn').addEventListener('click', saveThresholds);
-
-    // Set up tilt animation for weather card
-    const card = document.querySelector(".weather-card");
-    if (card) {
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * 8;
-            const rotateY = ((x - centerX) / centerX) * 8;
-            card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                plugins: {
+                    legend: { display: true },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.dataset.label}: ${context.raw}°C`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Temperature (°C)'
+                        }
+                    }
+                }
+            }
         });
 
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        // Initialize Humidity Chart
+        const humCtx = document.getElementById('humidityChart').getContext('2d');
+        humChart = new Chart(humCtx, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Humidity (%)',
+                    data: humData,
+                    borderColor: '#0099ff',
+                    backgroundColor: 'rgba(0,153,255,0.08)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: { display: true },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.dataset.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Humidity (%)'
+                        }
+                    }
+                }
+            }
         });
+
+        chartInitialized = true;
+    } else {
+        // Update existing charts
+        tempChart.data.labels = timeLabels;
+        tempChart.data.datasets[0].data = tempData;
+        humChart.data.labels = timeLabels;
+        humChart.data.datasets[0].data = humData;
+
+        tempChart.update();
+        humChart.update();
     }
-
-    // Sidebar toggle
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebar-toggle');
-    const closeBtn = document.getElementById('sidebar-close');
-
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-    });
-
-    // Audio initialization on user interaction
-    document.body.addEventListener('click', initAudioContext, { once: true });
-    document.body.addEventListener('keydown', initAudioContext, { once: true });
 }
-
-/**
- * Initialize the application
- */
-document.addEventListener("DOMContentLoaded", () => {
-    // Load saved thresholds
-    loadSavedThresholds();
-
-    // Initialize date/time updater
-    setInterval(updateDateTime, DATETIME_UPDATE_INTERVAL);
-    updateDateTime();
-
-    // Initialize data fetching
-    setInterval(fetchSensorData, DATA_FETCH_INTERVAL);
-
-    // Set up UI elements
-    const ipInput = document.getElementById("esp-ip-input");
-    if (espIP && (IP_PATTERN.test(espIP) || espIP === "test")) {
-        ipInput.value = espIP;
-        validateIP();
-        fetchSensorData();
-        startStatusMonitoring();
-    }
-
-    // Set up event listeners
-    setupEventListeners();
-
-    // Create background scene
-    createBackgroundScene();
-});
-
-
 /**
  * ============================================================
- * WEATHER FACTS DISPLAY
+ * 10. WEATHER FACTS MODULE
  * Randomly shows interesting weather facts on the UI
  * ============================================================
  */
@@ -832,13 +860,117 @@ const factElement = document.getElementById('weather-fact');
 let lastFactIndex = -1;
 
 function showRandomFact() {
-  let idx;
-  do {
-    idx = Math.floor(Math.random() * facts.length);
-  } while (facts.length > 1 && idx === lastFactIndex); // avoid immediate repeat if possible
-  factElement.textContent = facts[idx];
-  lastFactIndex = idx;
+    let idx;
+    do {
+        idx = Math.floor(Math.random() * facts.length);
+    } while (facts.length > 1 && idx === lastFactIndex); // avoid immediate repeat if possible
+    factElement.textContent = facts[idx];
+    lastFactIndex = idx;
 }
 
 showRandomFact();
-setInterval(showRandomFact, 10000);
+setInterval(showRandomFact, 30000);
+
+/**
+ * ============================================================
+ * 11. INITIALIZATION & EVENT LISTENERS
+ * ============================================================
+ */
+
+/**
+ * Sets up event listeners for the application
+ */
+function setupEventListeners() {
+    // IP input event listeners
+    const ipInput = document.getElementById("esp-ip-input");
+    ipInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            updateESPIP();
+        }
+    });
+    ipInput.addEventListener("input", validateIP);
+
+    // Connect button listener
+    const connectBtn = document.getElementById("connect-btn");
+    if (connectBtn) {
+        connectBtn.addEventListener("click", updateESPIP);
+    }
+
+    // Temperature toggle
+    document.getElementById('toggle-temp').addEventListener('click', function () {
+        showCelsius = !showCelsius;
+        updateTemperatureDisplay();
+    });
+
+    // Clear storage
+    document.getElementById('clear-storage-btn').addEventListener('click', clearStorageData);
+
+    // Save thresholds
+    document.getElementById('save-thresholds-btn').addEventListener('click', saveThresholds);
+
+    // Set up tilt animation for weather card
+    const card = document.querySelector(".weather-card");
+    if (card) {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * 8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        });
+    }
+
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const closeBtn = document.getElementById('sidebar-close');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+    });
+
+    // Audio initialization on user interaction
+    document.body.addEventListener('click', initAudioContext, { once: true });
+    document.body.addEventListener('keydown', initAudioContext, { once: true });
+}
+
+/**
+ * Initialize the application
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    // Load saved thresholds
+    loadSavedThresholds();
+
+    // Initialize date/time updater
+    setInterval(updateDateTime, DATETIME_UPDATE_INTERVAL);
+    updateDateTime();
+
+    // Initialize data fetching
+    setInterval(fetchSensorData, DATA_FETCH_INTERVAL);
+
+    // Set up UI elements
+    const ipInput = document.getElementById("esp-ip-input");
+    if (espIP && (IP_PATTERN.test(espIP) || espIP === "test")) {
+        ipInput.value = espIP;
+        validateIP();
+        fetchSensorData();
+        startStatusMonitoring();
+    }
+
+    // Set up event listeners
+    setupEventListeners();
+
+    // Create background scene
+    createBackgroundScene();
+});
