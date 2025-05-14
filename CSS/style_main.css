@@ -1223,3 +1223,104 @@ main {
 #save-thresholds-btn:focus-visible .btn-icon {
   filter: drop-shadow(0 2px 6px rgba(0, 123, 255, 0.18));
 }
+
+/* ===========================================
+   WEATHER FACT CARD
+   Glassmorphism card for displaying weather facts
+   =========================================== */
+.weather-fact {
+  /* Basic layout */
+  position: relative;
+  margin: 2.5rem auto 0 auto;
+  padding: 3rem 2.5rem 2rem 2.5rem;
+  max-width: 540px;
+  min-height: 80px;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 6px solid rgba(0, 188, 212, 0.5);
+
+  /* Typography */
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #222;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+
+  /* Other */
+  transition: background 0.4s, color 0.3s, box-shadow 0.4s, transform 0.3s;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Badge */
+.weather-fact::before {
+  content: "Fact";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 188, 212, 0.75);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.3rem;
+  border-radius: 0 0 16px 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(0, 188, 212, 0.15);
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Decorative circle element */
+.weather-fact::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #f7b42c 0%, #fc575e 100%);
+  opacity: 0.13;
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(2px);
+}
+
+/* Text content */
+.weather-fact span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-style: italic;
+}
+
+/* Hover effect */
+.weather-fact:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.15),
+    0 6px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .weather-fact {
+    padding: 2.5rem 1.2rem 1.7rem 1.2rem;
+    font-size: 1.1rem;
+    max-width: 92vw;
+    margin: 2rem auto 0 auto;
+  }
+
+  .weather-fact::before {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+  }
+}

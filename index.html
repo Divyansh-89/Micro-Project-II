@@ -11,13 +11,13 @@
   <!-- ========== GOOGLE FONTS ========== -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- ========== PAGE TITLE ========== -->
+  <!-- ========== PAGE TITLE... ========== -->
   <title>Weather Station Dashboard</title>
 
   <!-- ========== EXTERNAL STYLESHEETS ========== -->
   <!-- CSS has been modularized for better maintenance -->
   <link rel="stylesheet" href="CSS/style_header.css" /> <!-- Header-specific styles -->
-  <link rel="stylesheet" href="CSS/style_main.css" />   <!-- Main content styles -->
+  <link rel="stylesheet" href="CSS/style_main.css" /> <!-- Main content styles -->
   <link rel="stylesheet" href="CSS/style_footer.css" /> <!-- Footer-specific styles -->
 
   <!-- ========== FAVICON ========== -->
@@ -121,7 +121,7 @@
     <div class="container" id="dashboard-container">
       <!-- Toast notifications container for alerts -->
       <div id="toast-container"></div>
-      
+
       <!-- Sensor data cards container -->
       <main>
         <!-- Temperature sensor card -->
@@ -149,6 +149,13 @@
     <div class="weather-card" id="weatherCard">
       <div class="emoji" id="weatherEmoji">🌤️</div>
       <h2 id="weatherState">Loading...</h2>
+    </div>
+    <!-- ============================================================
+     WEATHER FACTS DISPLAY
+     Rotating interesting weather facts for the user
+     ============================================================ -->
+    <div id="weather-fact" class="weather-fact">
+      Here's your rotating fact text...
     </div>
 
     <!-- ========== FOOTER SECTION ========== -->

@@ -22,6 +22,7 @@
  * 7. Alert & Notification System
  * 8. Settings & Threshold Management
  * 9. Initialization & Event Listeners
+ * 10. Weather Facts Display
  * ============================================================
  */
 
@@ -129,7 +130,7 @@ function setStatus(isLive) {
 async function fetchSensorData() {
     // Handle test mode
     if (espIP === "test") {
-        updateSensorData(70, 18, 0);
+        updateSensorData(70, 18, 1);
         setStatus(true);
         lastUpdateTime = Date.now();
         return;
@@ -706,3 +707,138 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create background scene
     createBackgroundScene();
 });
+
+
+/**
+ * ============================================================
+ * WEATHER FACTS DISPLAY
+ * Randomly shows interesting weather facts on the UI
+ * ============================================================
+ */
+const facts = [
+    "You can estimate the temperature by counting a cricket’s chirps.",
+    "Sandstorms can swallow up entire cities.",
+    "Dirt mixed with wind can create dust storms called black blizzards.",
+    "A mudslide can carry rocks, trees, vehicles, and even buildings.",
+    "The coldest temperature ever officially recorded was -89.2°C in Antarctica.",
+    "A heatwave can make train tracks bend.",
+    "About 2,000 thunderstorms rain down on Earth every minute.",
+    "A 2003 heatwave turned grapes to raisins before they were picked.",
+    "Lightning often follows a volcanic eruption.",
+    "Raindrops can be as big as a housefly and fall at over 30 km/h.",
+    "Cape Farewell in Greenland is the windiest place on the planet.",
+    "Hurricanes can push more than 6 meters of water ashore.",
+    "In July 2001, rainfall in Kerala, India, was blood red.",
+    "Blizzards can make snowflakes feel like pellets hitting your face.",
+    "A hurricane in Florida once caused 900 captive pythons to escape.",
+    "Worms wriggle up from underground when a flood is coming.",
+    "A thunderstorm can produce winds of 160 km/h.",
+    "Lightning strikes the Earth about 40 million times each year.",
+    "The coldest place on Earth is the East Antarctic Plateau, at -135.8°F.",
+    "Clouds are made of water droplets or ice crystals, not gas.",
+    "The hottest temperature ever recorded was 134°F in Death Valley, California.",
+    "Hurricanes spin counterclockwise in the Northern Hemisphere and clockwise in the Southern Hemisphere.",
+    "Wind is caused by the flow of gases in our atmosphere.",
+    "We use anemometers to measure wind speed.",
+    "Not all raindrops reach the ground; some evaporate while still falling.",
+    "Raindrops are not tear-shaped as many believe.",
+    "Mawsynram in India gets 11 meters of rainfall each year.",
+    "The average speed of a falling raindrop is 20 mph.",
+    "On hot days, the Eiffel Tower grows up to 17 cm taller.",
+    "The highest temperature in the shade was 57.8°C in Libya in 1922.",
+    "Every snowflake is a unique shape.",
+    "The first snowflake was photographed in 1885.",
+    "The Inuit people have at least 53 words for snow.",
+    "Fog is made of tiny droplets of water suspended in the air close to the ground.",
+    "Newfoundland, Canada, has over 200 foggy days every year.",
+    "Rainbows can appear in fog; these are called 'fogbows'.",
+    "Hailstones can fall at speeds over 100 mph.",
+    "The heaviest hailstone fell in Bangladesh in 1986 and weighed over 1 kg.",
+    "A bolt of lightning is five times hotter than the surface of the Sun.",
+    "In Tororo, Uganda, it thunders on more than 250 days a year.",
+    "The odds of being struck by lightning in your lifetime are 1 in 15,300.",
+    "The fear of thunder and lightning is called astraphobia.",
+    "Every winter, more than a septillion snowflakes fall. That's a 1 with 24 zeros!",
+    "At any given time, around 67% of Earth's surface is covered by cloud.",
+    "The average weight of a cloud is about 500,000 kg.",
+    "Contrails are clouds formed from the water in airplane exhaust.",
+    "There are 10 common types of cloud.",
+    "Phoenix, Arizona, and Las Vegas, Nevada, are among the hottest cities in the U.S.",
+    "Tornadoes occur more frequently in the United States than anywhere else.",
+    "The National Weather Service started keeping records in 1870.",
+    "A 'front' is a boundary between two different air masses.",
+    "El Niño refers to ocean currents that cause major climate changes.",
+    "High, wispy cirrus clouds can predict bad weather 12–24 hours in advance.",
+    "The hottest place in America is Death Valley, California.",
+    "Air temperature on land can change quickly, but over water it changes slowly.",
+    "Rainbows are caused by sunlight refracting and reflecting through water droplets.",
+    "A barometer measures atmospheric pressure.",
+    "A meteorologist is a scientist who studies weather.",
+    "Nitrogen makes up about 78% of Earth's atmosphere.",
+    "Wind is caused by differences in air pressure.",
+    "The summer solstice is when the Sun reaches its highest point in the sky.",
+    "Hurricanes rotate around a center called the 'eye', where the weather is calm.",
+    "Hurricanes are called cyclones or typhoons in other parts of the world.",
+    "Clouds form from water that has evaporated from Earth's surface.",
+    "The largest hailstone in the U.S. had a circumference of 47 cm.",
+    "Hailstones have broken windows and destroyed cars.",
+    "Britain's wettest day was in 2015 when Honister Pass had 34 cm of rain.",
+    "Scotland sees sleet or snow an average of 38 days a year.",
+    "The UK's coldest temperature is -27.2°C in the Scottish Highlands.",
+    "The UK's worst winter was 1962/63 with 6 m high snowdrifts.",
+    "In the Northern Hemisphere, Earth is closest to the Sun during winter.",
+    "The River Thames has frozen solid several times in history.",
+    "Hurricane winds can reach speeds of 175 mph (280 km/h).",
+    "Every snowflake falls at about 1–6 feet per second.",
+    "The fear of cold is called frigophobia.",
+    "Some rain evaporates before reaching the ground; this is called virga.",
+    "The fastest wind speed ever recorded was 253 mph during Cyclone Olivia.",
+    "The largest snowflake ever recorded was 15 inches wide and 8 inches thick.",
+    "A rainbow can only be seen in the morning or late afternoon.",
+    "The longest dry period ever recorded was 14 years in Arica, Chile.",
+    "The wettest place on Earth is Mawsynram, India.",
+    "The Sahara Desert can reach temperatures over 50°C.",
+    "The coldest inhabited place on Earth is Oymyakon, Russia.",
+    "The deadliest tornado occurred in Bangladesh in 1989, killing 1,300 people.",
+    "The highest barometric pressure ever recorded was 1,085.7 mb in Siberia.",
+    "The lowest barometric pressure was 870 mb during Typhoon Tip in 1979.",
+    "Some clouds can weigh more than a million pounds.",
+    "A sunshower is when it rains while the sun is shining.",
+    "The Coriolis effect causes hurricanes to spin differently in each hemisphere.",
+    "The word 'hurricane' comes from the Taino Native American word 'hurucane', meaning evil spirit of the wind.",
+    "The first weather satellite, TIROS-1, was launched in 1960.",
+    "A waterspout is a tornado that forms over water.",
+    "The largest snowman ever built was over 122 feet tall.",
+    "Lightning can strike the same place twice.",
+    "A microburst is a small, intense downdraft that can cause severe damage.",
+    "The average cloud weighs about 1.1 million pounds.",
+    "The highest wave ever recorded was 1,720 feet tall in Alaska in 1958.",
+    "The longest lightning bolt ever recorded stretched over 440 miles.",
+    "The most rain to fall in one minute was 31.2 mm in Maryland, USA.",
+    "The hottest temperature ever recorded on Earth was 56.7°C in Death Valley, California.",
+    "The coldest temperature recorded in the U.S. was -80°F in Alaska.",
+    "The world’s largest hailstone was found in Vivian, South Dakota, in 2010.",
+    "The driest place on Earth is the Atacama Desert in Chile.",
+    "The wettest month ever recorded was July 1861 in Cherrapunji, India, with 9,300 mm of rain.",
+    "A derecho is a widespread, long-lived wind storm associated with a band of rapidly moving showers or thunderstorms.",
+    "The term 'monsoon' comes from the Arabic word 'mausim', meaning season.",
+    "The world record for the most snow in 24 hours is 75.8 inches in Silver Lake, Colorado.",
+    "The fastest forming tornado was in Oklahoma in 1999, forming in less than 10 minutes.",
+    "The highest temperature ever recorded in Asia was 54°C in Kuwait in 2016."
+];
+
+
+const factElement = document.getElementById('weather-fact');
+let lastFactIndex = -1;
+
+function showRandomFact() {
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * facts.length);
+  } while (facts.length > 1 && idx === lastFactIndex); // avoid immediate repeat if possible
+  factElement.textContent = facts[idx];
+  lastFactIndex = idx;
+}
+
+showRandomFact();
+setInterval(showRandomFact, 10000);
