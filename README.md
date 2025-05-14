@@ -1,7 +1,7 @@
 
 # 🌦️ Micro Project II - Weather Dashboard
 
-![Weather Dashboard Screenshot](https://github.com/Divyansh-89/Micro-Project-II/blob/d982414611d399bfdb945bcc1b78103bd63f3929/DEMO%20IMAGES/Screenshot%202025-05-12%20083959.png)
+![Weather Dashboard Screenshot](https://github.com/Divyansh-89/Micro-Project-II/blob/c211bf07081f5cdf316a9aa51ad39ab4364bcfb8/DEMO%20IMAGES/Screenshot%202025-05-14%20175155.png)
 
 A real-time, interactive weather dashboard powered by **ESP32**, **DHT11**, and **LDR** sensors. This project collects live **temperature**, **humidity**, and **light intensity** data and displays it in a modern, responsive web interface. Perfect for learning IoT, web development, and real-world sensor integration!
 
