@@ -43,7 +43,7 @@ let tempC = null;
 let showCelsius = true;
 let audioCtx;
 let lastScene = null;
-const MAX_POINTS = 1000;
+const MAX_POINTS = 10000;
 const tempData = [];
 const humData = [];
 const timeLabels = [];
@@ -621,7 +621,7 @@ function clearStorageData() {
  * ============================================================
  */
 function UpdateCharts(temp, hum) {
-    if (!chartInitialized || Date.now() - lastChartUpdate >= 58000) {
+    if (!chartInitialized || Date.now() - lastChartUpdate >= 9000) {
         const now = new Date();
         const label = now.getHours().toString().padStart(2, '0') + ':' +
             now.getMinutes().toString().padStart(2, '0') + ':' +
