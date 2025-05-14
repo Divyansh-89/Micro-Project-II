@@ -138,7 +138,7 @@ function setStatus(isLive) {
 async function fetchSensorData() {
     // Handle test mode
     if (espIP === "test") {
-        updateSensorData(70, 18, 1);
+        updateSensorData(35, 28, 1);
         setStatus(true);
         lastUpdateTime = Date.now();
         return;
