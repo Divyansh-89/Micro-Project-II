@@ -1332,15 +1332,6 @@ main {
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .chart-container {
-    height: 180px;
-    max-width: 98vw;
-    padding: 0 4px;
-  }
-}
-
 .sensor-section {
   margin-bottom: 40px;
   background: rgba(255, 255, 255, 0.1);
