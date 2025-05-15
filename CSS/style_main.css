@@ -1319,13 +1319,13 @@ main {
   width: 100%;
   margin: 24px auto;
   position: relative;
-  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(230,240,255,0.18) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(230, 240, 255, 0.18) 100%);
   border-radius: 18px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12), 0 1.5px 5px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12), 0 1.5px 5px 0 rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(6px);
   overflow: hidden;
   transition: box-shadow 0.3s, background 0.3s;
-  border: 1.5px solid rgba(255,255,255,0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1339,4 +1339,196 @@ main {
   padding: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* Export Data Button - matches #clear-storage-btn */
+#export-data-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0.82em 1.2em;
+  background: linear-gradient(92deg, rgba(0, 123, 255, 0.08) 0%, rgba(106, 17, 203, 0.09) 100%);
+  color: #23395d;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background 0.22s cubic-bezier(.4, 0, .2, 1),
+    color 0.18s cubic-bezier(.4, 0, .2, 1),
+    box-shadow 0.18s cubic-bezier(.4, 0, .2, 1),
+    transform 0.13s cubic-bezier(.4, 0, .2, 1);
+  margin-top: 18px;
+  box-shadow:
+    0 2.5px 12px rgba(0, 123, 255, 0.10),
+    0 1.5px 5px rgba(106, 17, 203, 0.07);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pseudo-element for hover effect */
+#export-data-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(92deg, rgba(0, 123, 255, 0.13) 0%, rgba(106, 17, 203, 0.11) 100%);
+  opacity: 0;
+  transition: opacity 0.22s cubic-bezier(.4, 0, .2, 1);
+  z-index: 0;
+}
+
+#export-data-btn:hover::before,
+#export-data-btn:focus-visible::before {
+  opacity: 1;
+}
+
+/* Button states */
+#export-data-btn:hover,
+#export-data-btn:focus-visible {
+  background: linear-gradient(92deg, rgba(0, 123, 255, 0.18) 0%, rgba(106, 17, 203, 0.17) 100%);
+  color: #007bff;
+  box-shadow:
+    0 6px 24px rgba(0, 123, 255, 0.16),
+    0 2px 8px rgba(106, 17, 203, 0.10);
+  transform: translateY(-2px) scale(1.04);
+}
+
+#export-data-btn:active {
+  background: linear-gradient(92deg, rgba(0, 123, 255, 0.28) 0%, rgba(106, 17, 203, 0.22) 100%);
+  color: #004499;
+  transform: scale(0.97);
+}
+
+/* Button icon styles */
+#export-data-btn .btn-icon {
+  font-size: 1.25em;
+  opacity: 0.82;
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(0 1px 2px rgba(0, 123, 255, 0.11));
+  transition: filter 0.18s;
+}
+
+#export-data-btn:hover .btn-icon,
+#export-data-btn:focus-visible .btn-icon {
+  filter: drop-shadow(0 2px 6px rgba(0, 123, 255, 0.18));
+}
+
+.input-subheading {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4a4f69;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+  user-select: none;
+  padding-left: 2px;
+}
+
+/* -------------------------------
+   🔌 IP INPUT SECTION 
+   ------------------------------- */
+.ip-input-section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 28px auto;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 6px 32px 0 rgba(60, 60, 120, 0.13);
+  border: 1.5px solid rgba(106, 17, 203, 0.13);
+  padding: 8px 14px 8px 18px;
+  gap: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ip-input-section input[type="text"] {
+  flex: 1 1 0%;
+  border: none;
+  background: transparent;
+  font-size: 1.13rem;
+  color: #23284a;
+  padding: 12px 8px 12px 0;
+  outline: none;
+  font-weight: 500;
+  border-radius: 999px;
+  min-width: 0;
+  transition: background 0.18s, color 0.18s;
+}
+
+.ip-input-section input[type="text"]::placeholder {
+  color: #8ca1c7;
+  opacity: 1;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.ip-input-section input[type="text"]:focus {
+  color: #111;
+  background: rgba(255, 255, 255, 0.33);
+}
+
+.ip-input-section button {
+  border: none;
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.17);
+  position: relative;
+  overflow: visible;
+  transition: background 0.17s, transform 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+.ip-input-section button .glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle, #6a11cb44 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s, transform 0.22s;
+  z-index: 0;
+}
+
+.ip-input-section button:hover .glow,
+.ip-input-section button:focus .glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.ip-input-section button:disabled {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+   
+.ip-input-section button:hover:not(:disabled) {
+  background: #222;
+  transform: scale(1.09);
 }

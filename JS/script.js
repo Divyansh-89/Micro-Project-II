@@ -138,7 +138,7 @@ function setStatus(isLive) {
 async function fetchSensorData() {
     // Handle test mode
     if (espIP === "test") {
-        updateSensorData(35, 40, 1);
+        updateSensorData(35, 40, 0);
         setStatus(true);
         lastUpdateTime = Date.now();
         return;
@@ -621,7 +621,7 @@ function clearStorageData() {
  * ============================================================
  */
 function UpdateCharts(temp, hum) {
-    if (!chartInitialized || Date.now() - lastChartUpdate >= 9000) {
+    if (!chartInitialized || Date.now() - lastChartUpdate >= 8000) {
         const now = new Date();
         const label = now.getHours().toString().padStart(2, '0') + ':' +
             now.getMinutes().toString().padStart(2, '0') + ':' +
@@ -737,6 +737,28 @@ function UpdateCharts(temp, hum) {
         humChart.update();
     }
 }
+
+/**
+ * Exports chart data arrays (time, temperature, humidity) as a CSV file and triggers download.
+ * The CSV file is named 'weather_data.csv'.
+ */
+function exportChartDataToCSV() {
+    let csv = "Time,Temperature,Humidity\n";
+    for (let i = 0; i < timeLabels.length; i++) {
+        csv += `${timeLabels[i]},${tempData[i] ?? ''},${humData[i] ?? ''}\n`;
+    }
+    // Create a download link and trigger it
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'weather_data.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
 /**
  * ============================================================
  * 10. WEATHER FACTS MODULE
@@ -907,6 +929,8 @@ function setupEventListeners() {
 
     // Save thresholds
     document.getElementById('save-thresholds-btn').addEventListener('click', saveThresholds);
+    // document.getElementById('export-csv-btn').addEventListener('click', exportChartDataToCSV);
+
 
     // Set up tilt animation for weather card
     const card = document.querySelector(".weather-card");
@@ -973,4 +997,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Create background scene
     createBackgroundScene();
+    const exportBtn = document.getElementById("export-csv-btn");
+    if (exportBtn) {
+        exportBtn.addEventListener("click", exportChartDataToCSV);
+    }
 });
