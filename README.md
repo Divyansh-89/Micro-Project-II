@@ -17,8 +17,11 @@ A real-time, interactive weather dashboard powered by **ESP32**, **DHT11**, and 
 - 🌐 **Easy Deployment**: Host the dashboard on GitHub Pages or access via ESP32 IP.
 - 🔌 **Plug & Play**: Auto-connect feature—no need to manually enter IP address.
 - ➕ **Expandable**: Add more sensors like BMP180, rain sensors, etc.
-- 🆕 Random Weather Facts: Enjoy a rotating section that shows fun weather-related trivia.
-- 🆕 Live Chart Visualization: Real-time charts for temperature and humidity trends.
+- 🆕 **Random Weather Facts**: Enjoy a rotating section that shows fun weather-related trivia.
+- 🆕 **Live Chart Visualization**: Real-time charts for temperature and humidity trends.
+- ⬇️ **CSV Export**: Download all sensor readings as a CSV file for analysis.
+
+
 
 ---
 
@@ -122,6 +125,7 @@ https://divyansh-89.github.io/Micro-Project-II/
 - Set thresholds and clear logs directly from UI.
 - Check fun weather facts on every page load.
 - Monitor live changes with interactive temperature/humidity chart.
+- Click the **Export Data** button to save all readings as a CSV file.
 
 
 ---
@@ -130,7 +134,7 @@ https://divyansh-89.github.io/Micro-Project-II/
 
 Users can set **temperature**, **humidity**, and **light** limits. If any reading crosses the threshold, a visual or audio alert appears instantly—great for real-time environment monitoring. Want to restart monitoring? Use the **Clear Storage** button to wipe previous readings and begin fresh tracking.  
 
-![1](https://github.com/Divyansh-89/Micro-Project-II/blob/5fd144e09959dcc12fe7adb974ec24f81b7f4efe/DEMO%20IMAGES/Screenshot%202025-05-14%20234545.png)  
+![1](https://github.com/Divyansh-89/Micro-Project-II/blob/f1a73aee95305a6be211368b254034eec45b4788/DEMO%20IMAGES/Screenshot%202025-05-15%20140941.png)  
 
 ![2](https://github.com/Divyansh-89/Micro-Project-II/blob/5fd144e09959dcc12fe7adb974ec24f81b7f4efe/DEMO%20IMAGES/Screenshot%202025-05-14%20234607.png)  
 
