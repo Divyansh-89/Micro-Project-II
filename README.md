@@ -1,7 +1,7 @@
 
 # 🌦️ Micro Project II - Weather Dashboard
 
-![Weather Dashboard Screenshot](https://github.com/Divyansh-89/Micro-Project-II/blob/198d1fd349635a28a6681f02b554aeac6df23f36/DEMO%20IMAGES/Screenshot%202025-05-14%20234442.png)
+![Weather Dashboard Screenshot](https://github.com/Divyansh-89/Micro-Project-II/blob/c2f91238d5c0c13b4f053aba6b25f2b6b53ed6cf/DEMO%20IMAGES/Screenshot%202025-05-14%20230326.png)
 
 A real-time, interactive weather dashboard powered by **ESP32**, **DHT11**, and **LDR** sensors. This project collects live **temperature**, **humidity**, and **light intensity** data and displays it in a modern, responsive web interface. Perfect for learning IoT, web development, and real-world sensor integration!
 
@@ -129,7 +129,9 @@ https://divyansh-89.github.io/Micro-Project-II/
 ## 🛎️ Custom Alerts & 🧹 Clear Storage
 
 Users can set **temperature**, **humidity**, and **light** limits. If any reading crosses the threshold, a visual or audio alert appears instantly—great for real-time environment monitoring. Want to restart monitoring? Use the **Clear Storage** button to wipe previous readings and begin fresh tracking.  
+
 ![1](https://github.com/Divyansh-89/Micro-Project-II/blob/5fd144e09959dcc12fe7adb974ec24f81b7f4efe/DEMO%20IMAGES/Screenshot%202025-05-14%20234545.png)  
+
 ![2](https://github.com/Divyansh-89/Micro-Project-II/blob/5fd144e09959dcc12fe7adb974ec24f81b7f4efe/DEMO%20IMAGES/Screenshot%202025-05-14%20234607.png)  
 
 
@@ -146,6 +148,8 @@ Users can set **temperature**, **humidity**, and **light** limits. If any readin
 ## 📸 Demo
 
 ![1](https://github.com/Divyansh-89/Micro-Project-II/blob/2e6a6225772821ee0e7dee11e0da87c38d4b6bb9/DEMO%20IMAGES/Screenshot%202025-05-15%20001333.png)
+
+![2](https://github.com/Divyansh-89/Micro-Project-II/blob/c2f91238d5c0c13b4f053aba6b25f2b6b53ed6cf/DEMO%20IMAGES/Screenshot%202025-05-15%20001333.png)
 
 
 ---
