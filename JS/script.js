@@ -138,7 +138,7 @@ function setStatus(isLive) {
 async function fetchSensorData() {
     // Handle test mode
     if (espIP === "test") {
-        updateSensorData(35, 40, 0);
+        updateSensorData(35, 55, 1);
         setStatus(true);
         lastUpdateTime = Date.now();
         return;
@@ -283,39 +283,30 @@ function updateWeatherCard(ldr, temp, humidity) {
  * @returns {Object} Weather state info with display properties
  */
 function getWeatherState(ldr, temp, humidity) {
-    // 🌑 NIGHT / LOW LIGHT CONDITIONS
-    if (ldr === 0) {
-        if (temp < 10 && humidity > 80) {
-            return { state: "Cold & Damp Night", emoji: "🌫️", bg: "linear-gradient(to right,rgb(64, 90, 116),rgb(90, 189, 204))" };
-        } else if (temp >= 10 && temp <= 20 && humidity > 70) {
-            return { state: "Cool & Humid Night", emoji: "🌃", bg: "linear-gradient(to right,rgb(144, 147, 148), #203a43)" };
-        } else {
-            return { state: "Clear Night", emoji: "✨", bg: "linear-gradient(to right,rgb(88, 140, 237),rgb(108, 154, 206))" };
-        }
-    }
+    const NIGHT = 0, DAY = 1;
+    if (![NIGHT, DAY].includes(ldr)) return {
+        state: "Invalid Sensor Reading", emoji: "⚠️", bg: "linear-gradient(to right, #bdc3c7, #2c3e50)"
+    };
 
-    // ☀️ DAY / BRIGHT CONDITIONS
-    else if (ldr === 1) {
-        if (temp < 10 && humidity > 80) {
-            return { state: "Cold & Damp Morning", emoji: "🌫️", bg: "linear-gradient(to right, #3a6073, #16222a)" };
-        } else if (temp >= 10 && temp <= 20 && humidity > 70) {
-            return { state: "Cool & Humid", emoji: "🌥️", bg: "linear-gradient(to right, #bdc3c7, #2c3e50)" };
-        } else if (temp > 20 && temp <= 30 && humidity >= 40 && humidity <= 60) {
-            return { state: "Pleasant Weather", emoji: "🌞", bg: "linear-gradient(to right, #56ccf2, #2f80ed)" };
-        } else if (temp > 30 && humidity < 40) {
-            return { state: "Hot & Dry", emoji: "🔥", bg: "linear-gradient(to right, #e96443, #904e95)" };
-        } else if (temp > 30 && humidity >= 40) {
-            return { state: "Hot & Humid", emoji: "💦", bg: "linear-gradient(to right, #f2994a, #f2c94c)" };
-        } else {
-            return { state: "Uncertain Day", emoji: "❓", bg: "linear-gradient(to right, #757f9a, #d7dde8)" };
-        }
-    }
-
-    // 🤷 Unexpected ldr value
-    else {
-        return { state: "Unknown Light Level", emoji: "❓", bg: "linear-gradient(to right, #bdc3c7, #2c3e50)" };
+    if (ldr === NIGHT) {
+        if (temp < 10 && humidity > 80) return { state: "Foggy Night", emoji: "🌫️", bg: "linear-gradient(to right, rgb(51, 92, 132), rgb(90, 189, 204))" };
+        if (temp >= 10 && temp <= 20 && humidity > 70) return { state: "Dewy Night", emoji: "💧", bg: "linear-gradient(to right, rgb(144, 147, 148),rgb(72, 123, 141))" };
+        if (temp > 20 && temp <= 30) return { state: "Warm Night", emoji: "🌡️", bg: "linear-gradient(to right, rgb(88, 140, 237), rgb(108, 154, 206))" };
+        if (temp > 30) return { state: "Tropical Night", emoji: "🔥", bg: "linear-gradient(to right,rgb(229, 229, 229), #a044ff)" };
+        return { state: "Clear Night", emoji: "🌙", bg: "linear-gradient(to right, rgb(88, 140, 237), rgb(108, 154, 206))" };
+    } else {
+        if (temp < 10 && humidity > 80) return { state: "Foggy Morning", emoji: "🌫️", bg: "linear-gradient(to right, #3a6073,rgb(123, 118, 155))" };
+        if (temp < 10) return { state: "Cold & Crisp", emoji: "❄️", bg: "linear-gradient(to right, #e6dada, #274046)" };
+        if (temp <= 20 && humidity > 70) return { state: "Damp & Cool", emoji: "💧", bg: "linear-gradient(to right, #bdc3c7, #2c3e50)" };
+        if (temp <= 20) return { state: "Mild & Dry", emoji: "🍃", bg: "linear-gradient(to right, #c9d6ff, #e2e2e2)" };
+        if (temp <= 30 && humidity >= 40 && humidity <= 60) return { state: "Perfect Weather", emoji: "☀️", bg: "linear-gradient(to right, #56ccf2, #2f80ed)" };
+        if (temp <= 30 && humidity > 60) return { state: "Warm & Sticky", emoji: "🔆", bg: "linear-gradient(to right, #ff9966, #ff5e62)" };
+        if (temp <= 30) return { state: "Warm & Arid", emoji: "🌡️", bg: "linear-gradient(to right, #f5af19, #f12711)" };
+        if (humidity < 40) return { state: "Scorching Heat", emoji: "🔥", bg: "linear-gradient(to right, #e96443, #904e95)" };
+        return { state: "Sweltering Heat", emoji: "☀️", bg: "linear-gradient(to right, #f2994a, #f2c94c)" };
     }
 }
+
 
 /**
  * ============================================================
