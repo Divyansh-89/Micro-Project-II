@@ -52,8 +52,8 @@ A real-time, interactive weather dashboard powered by **ESP32**, **DHT11**, and 
 
 | Component | ESP32 GPIO Pin |
 |----------|----------------|
-| DHT11    | GPIO 13 (e.g.) |
-| LDR      | GPIO 12 (via voltage divider) |
+| DHT11    | GPIO 15 (e.g.) |
+| LDR      | GPIO 27 (via voltage divider) |
 | Power    | 3.3V and GND   |
 
 ---
